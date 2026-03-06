@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お問い合わせ | WATER FALL Inc. — イベント企画・制作・運営</title>
+    <meta name="description" content="WATER FALL Inc.へのお問い合わせはこちら。イベント企画・プロジェクションマッピング・文化事業・助成金対応など、何でもお気軽にご相談ください。初回ヒアリング無料。">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { "primary": "#2547f4", "accent": "#ff6b00", "bg-light": "#F5F7FA" },
+                    fontFamily: { "display": ["Space Grotesk", "sans-serif"], "body": ["Noto Sans JP", "sans-serif"] },
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans JP', sans-serif; background: #FFFFFF; color: #1A202C; margin: 0; overflow-x: hidden; }
+        h1, h2, h3, h4, .font-display { font-family: 'Space Grotesk', sans-serif; }
+        .glass-panel { background: rgba(255,255,255,0.9); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 4px 24px rgba(0,0,0,0.04); }
+        .section-label { font-family: 'Space Grotesk', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.35em; text-transform: uppercase; color: #2547f4; }
+        #mobile-menu { display: none; }
+        #mobile-menu.open { display: flex; }
+        html { scroll-behavior: smooth; }
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-thumb { background: #2547f4; border-radius: 2px; }
+        #waterfall-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; opacity: 0.22; }
+        section, nav, header, footer { position: relative; z-index: 10; }
+
+        /* Form styles */
+        .form-input {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 0.75rem;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 0.875rem;
+            color: #1A202C;
+            background: #FFFFFF;
+            transition: all 0.2s;
+            outline: none;
+        }
+        .form-input:focus { border-color: #2547f4; box-shadow: 0 0 0 3px rgba(37,71,244,0.1); }
+        .form-input::placeholder { color: #94a3b8; }
+        .form-label { font-family: 'Noto Sans JP', sans-serif; font-size: 0.8rem; font-weight: 500; color: #475569; margin-bottom: 0.5rem; display: block; }
+        .form-required { color: #ff6b00; margin-left: 4px; font-size: 0.7rem; }
+        select.form-input { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2394a3b8'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 0.75rem center; background-size: 1.25rem; padding-right: 2.5rem; }
+        .form-check { display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer; }
+        .form-check input[type="checkbox"] { width: 1.125rem; height: 1.125rem; border: 1.5px solid #e2e8f0; border-radius: 4px; accent-color: #2547f4; cursor: pointer; flex-shrink: 0; margin-top: 2px; }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.createElement('canvas');
+            canvas.id = 'waterfall-canvas';
+            document.body.prepend(canvas);
+            const ctx = canvas.getContext('2d');
+            let width, height, particles = [];
+            const count = 100, baseSpeed = 0.9;
+            let scrollSpeed = 0;
+            const resize = () => { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; init(); };
+            class Particle {
+                constructor() { this.reset(); }
+                reset() { this.x = Math.random()*width; this.y = Math.random()*height-height; this.len = Math.random()*22+6; this.op = Math.random()*0.2+0.03; this.sp = Math.random()*0.6+baseSpeed; this.w = Math.random()*0.9+0.2; const h = Math.random()>0.8?200:228; this.col = `hsla(${h},80%,45%,`; }
+                update() { this.y += this.sp + scrollSpeed; if (this.y > height) { this.y = -this.len - Math.random()*60; this.x = Math.random()*width; this.reset(); } }
+                draw() { ctx.beginPath(); const g = ctx.createLinearGradient(this.x,this.y,this.x,this.y+this.len); g.addColorStop(0,this.col+'0)'); g.addColorStop(1,this.col+this.op+')'); ctx.strokeStyle=g; ctx.lineWidth=this.w; ctx.moveTo(this.x,this.y); ctx.lineTo(this.x,this.y+this.len); ctx.stroke(); }
+            }
+            function init() { particles = []; for (let i = 0; i < count; i++) particles.push(new Particle()); }
+            function animate() { ctx.clearRect(0,0,width,height); scrollSpeed *= 0.93; if (Math.abs(scrollSpeed)<0.05) scrollSpeed=0; particles.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animate); }
+            let lastY = window.scrollY;
+            window.addEventListener('scroll', () => { const d = window.scrollY-lastY; if (d>0) scrollSpeed = Math.min(scrollSpeed+d*0.02,10); lastY = window.scrollY; });
+            window.addEventListener('resize', resize);
+            resize(); animate();
+            document.getElementById('menu-btn').addEventListener('click', () => document.getElementById('mobile-menu').classList.toggle('open'));
+
+            // Form submission (Formspree + Fetch)
+            document.getElementById('contact-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const form = e.target;
+                const btn  = form.querySelector('button[type="submit"]');
+                btn.disabled = true;
+                btn.textContent = '送信中…';
+
+                try {
+                    const res = await fetch(form.action, {
+                        method: 'POST',
+                        body: new FormData(form),
+                        headers: { 'Accept': 'application/json' }
+                    });
+                    if (res.ok) {
+                        document.getElementById('form-area').classList.add('hidden');
+                        document.getElementById('form-success').classList.remove('hidden');
+                    } else {
+                        alert('送信に失敗しました。お手数ですが、メール（info@water-fall.jp）にてご連絡ください。');
+                        btn.disabled = false;
+                        btn.innerHTML = '送信する <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>';
+                    }
+                } catch {
+                    alert('通信エラーが発生しました。時間をおいて再度お試しください。');
+                    btn.disabled = false;
+                    btn.innerHTML = '送信する <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>';
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="fixed top-0 w-full z-50 glass-panel border-b border-black/5">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-3 flex-shrink-0">
+            <div class="w-8 h-8 bg-primary rounded-sm flex items-center justify-center">
+                <span class="material-symbols-outlined text-white text-xl">waves</span>
+            </div>
+            <span class="text-lg font-bold tracking-tighter uppercase font-display text-slate-900">Water Fall <span class="text-primary">Inc.</span></span>
+        </a>
+        <div class="hidden md:flex items-center gap-8 text-xs font-bold tracking-[0.2em] uppercase font-display">
+            <a href="index.html" class="text-slate-500 hover:text-primary transition-colors">Home</a>
+            <a href="services.html" class="text-slate-500 hover:text-primary transition-colors">Services</a>
+            <a href="company.html" class="text-slate-500 hover:text-primary transition-colors">Company</a>
+        </div>
+        <a href="contact.html" class="hidden md:flex bg-primary text-white px-5 py-2.5 rounded-lg font-bold font-display text-xs tracking-widest uppercase items-center gap-2">
+            Contact <span class="material-symbols-outlined text-sm">arrow_forward</span>
+        </a>
+        <button id="menu-btn" class="md:hidden p-2 flex flex-col gap-1.5">
+            <span class="w-5 h-0.5 bg-slate-800 block"></span><span class="w-5 h-0.5 bg-slate-800 block"></span><span class="w-3 h-0.5 bg-slate-800 block ml-auto"></span>
+        </button>
+    </div>
+    <div id="mobile-menu" class="flex-col items-center gap-6 py-8 border-t border-black/5 bg-white/97">
+        <a href="index.html" class="text-slate-600 text-xs font-bold tracking-widest uppercase font-display">Home</a>
+        <a href="services.html" class="text-slate-600 text-xs font-bold tracking-widest uppercase font-display">Services</a>
+        <a href="company.html" class="text-slate-600 text-xs font-bold tracking-widest uppercase font-display">Company</a>
+        <a href="contact.html" class="bg-primary text-white px-8 py-3 rounded-lg font-bold font-display text-xs tracking-widest">Contact</a>
+    </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<header class="pt-40 pb-20 px-6 bg-white relative overflow-hidden">
+    <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/4 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto">
+        <nav class="flex items-center gap-2 text-xs text-slate-400 font-display tracking-wider mb-8">
+            <a href="index.html" class="hover:text-primary transition-colors">HOME</a>
+            <span class="material-symbols-outlined text-sm">chevron_right</span>
+            <span class="text-slate-600">CONTACT</span>
+        </nav>
+        <span class="section-label mb-5 block">Contact Us</span>
+        <h1 class="text-5xl md:text-7xl font-bold font-display text-slate-900 tracking-tighter mb-8 leading-tight">お問い合わせ</h1>
+        <p class="text-slate-500 text-base md:text-lg leading-relaxed max-w-2xl">
+            イベントの規模・予算・目的を問わず、どんな段階からでもご相談に応じます。<br>
+            初回ヒアリングは無料です。お気軽にご連絡ください。
+        </p>
+    </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- CONTACT GRID -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+        <!-- Info cards row -->
+        <div class="grid md:grid-cols-3 gap-5 mb-20">
+            <div class="bg-slate-50 rounded-2xl p-7 border border-slate-100 flex items-start gap-5">
+                <div class="w-12 h-12 bg-primary/8 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <span class="material-symbols-outlined text-primary text-2xl">mail</span>
+                </div>
+                <div>
+                    <p class="font-bold font-display text-slate-800 text-sm mb-1">Email</p>
+                    <a href="mailto:info@water-fall.jp" class="text-primary hover:underline text-sm">info@water-fall.jp</a>
+                    <p class="text-slate-400 text-xs mt-1">24時間受付</p>
+                </div>
+            </div>
+            <div class="bg-slate-50 rounded-2xl p-7 border border-slate-100 flex items-start gap-5">
+                <div class="w-12 h-12 bg-primary/8 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <span class="material-symbols-outlined text-primary text-2xl">location_on</span>
+                </div>
+                <div>
+                    <p class="font-bold font-display text-slate-800 text-sm mb-1">Office</p>
+                    <p class="text-slate-600 text-sm">東京都中央区銀座1丁目</p>
+                    <p class="text-slate-400 text-xs mt-1">〒104-0061</p>
+                </div>
+            </div>
+            <div class="bg-primary rounded-2xl p-7 flex items-start gap-5">
+                <div class="w-12 h-12 bg-white/15 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <span class="material-symbols-outlined text-white text-2xl">schedule</span>
+                </div>
+                <div>
+                    <p class="font-bold font-display text-white text-sm mb-1">Response Time</p>
+                    <p class="text-white/80 text-sm">2営業日以内にご返信</p>
+                    <p class="text-white/50 text-xs mt-1">初回ヒアリング無料</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main content: Form + Sidebar -->
+        <div class="grid lg:grid-cols-3 gap-12">
+            <!-- Form -->
+            <div class="lg:col-span-2">
+                <div id="form-area">
+                    <h2 class="text-2xl font-bold font-display text-slate-900 tracking-tighter mb-8">お問い合わせフォーム</h2>
+                    <form id="contact-form" class="space-y-6" action="https://formspree.io/f/mojkaodq" method="POST">
+                        <!-- Name -->
+                        <div class="grid sm:grid-cols-2 gap-5">
+                            <div>
+                                <label class="form-label">お名前<span class="form-required">必須</span></label>
+                                <input type="text" name="name" class="form-input" placeholder="山田 太郎" required>
+                            </div>
+                            <div>
+                                <label class="form-label">会社名・団体名</label>
+                                <input type="text" name="company" class="form-input" placeholder="〇〇株式会社">
+                            </div>
+                        </div>
+                        <!-- Email / Phone -->
+                        <div class="grid sm:grid-cols-2 gap-5">
+                            <div>
+                                <label class="form-label">メールアドレス<span class="form-required">必須</span></label>
+                                <input type="email" name="email" class="form-input" placeholder="example@company.co.jp" required>
+                            </div>
+                            <div>
+                                <label class="form-label">電話番号</label>
+                                <input type="tel" name="phone" class="form-input" placeholder="03-0000-0000">
+                            </div>
+                        </div>
+                        <!-- Inquiry Type -->
+                        <div>
+                            <label class="form-label">お問い合わせの種類<span class="form-required">必須</span></label>
+                            <select name="inquiry_type" class="form-input" required>
+                                <option value="" disabled selected>選択してください</option>
+                                <option>イベント企画・コンセプト立案のご相談</option>
+                                <option>空間演出・舞台デザインのご相談</option>
+                                <option>プロジェクションマッピングのご相談</option>
+                                <option>映像制作・ライブ配信のご相談</option>
+                                <option>当日運営・進行管理のご相談</option>
+                                <option>文化事業・助成金対応のご相談</option>
+                                <option>料金・お見積もりについて</option>
+                                <option>その他</option>
+                            </select>
+                        </div>
+                        <!-- Event Scale -->
+                        <div class="grid sm:grid-cols-2 gap-5">
+                            <div>
+                                <label class="form-label">想定イベント規模</label>
+                                <select name="event_scale" class="form-input">
+                                    <option value="" disabled selected>選択してください</option>
+                                    <option>30〜100名</option>
+                                    <option>100〜300名</option>
+                                    <option>300〜1,000名</option>
+                                    <option>1,000〜5,000名</option>
+                                    <option>5,000名以上</option>
+                                    <option>未定</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">予定時期</label>
+                                <input type="text" name="event_date" class="form-input" placeholder="例：2025年10月ごろ">
+                            </div>
+                        </div>
+                        <!-- Budget -->
+                        <div>
+                            <label class="form-label">ご予算の目安</label>
+                            <select name="budget" class="form-input">
+                                <option value="" disabled selected>選択してください（任意）</option>
+                                <option>〜300万円</option>
+                                <option>300万〜800万円</option>
+                                <option>800万〜2,000万円</option>
+                                <option>2,000万円以上</option>
+                                <option>未定・ご相談</option>
+                            </select>
+                        </div>
+                        <!-- Message -->
+                        <div>
+                            <label class="form-label">お問い合わせ内容<span class="form-required">必須</span></label>
+                            <textarea name="message" class="form-input" rows="6" placeholder="ご要望・背景・日程など、お気軽にご記入ください。" required style="resize: vertical; min-height: 120px;"></textarea>
+                        </div>
+                        <!-- How did you find us -->
+                        <div>
+                            <label class="form-label">このサイトをどこで知りましたか？</label>
+                            <select name="referral" class="form-input">
+                                <option value="" disabled selected>選択してください（任意）</option>
+                                <option>Web検索（Google・Yahoo!など）</option>
+                                <option>SNS（Instagram・X・Facebookなど）</option>
+                                <option>知人・取引先のご紹介</option>
+                                <option>イベント会場でのご縁</option>
+                                <option>その他</option>
+                            </select>
+                        </div>
+                        <!-- Privacy check -->
+                        <div class="p-5 bg-slate-50 rounded-xl border border-slate-100">
+                            <label class="form-check">
+                                <input type="checkbox" required>
+                                <span class="text-slate-600 text-sm leading-relaxed">
+                                    <a href="#" class="text-primary underline">プライバシーポリシー</a>に同意の上、送信します。<span class="form-required">必須</span>
+                                </span>
+                            </label>
+                        </div>
+                        <!-- Submit -->
+                        <button type="submit" class="w-full bg-primary hover:bg-primary/85 text-white py-5 rounded-xl font-bold font-display text-sm tracking-widest uppercase transition-all flex items-center justify-center gap-2 group shadow-lg shadow-primary/20">
+                            送信する
+                            <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                        </button>
+                        <p class="text-center text-slate-400 text-xs">2営業日以内にご返信いたします。</p>
+                    </form>
+                </div>
+
+                <!-- Success Message (hidden by default) -->
+                <div id="form-success" class="hidden text-center py-24">
+                    <div class="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-8">
+                        <span class="material-symbols-outlined text-green-500 text-4xl">check_circle</span>
+                    </div>
+                    <h3 class="text-2xl font-bold font-display text-slate-900 mb-4">送信完了しました</h3>
+                    <p class="text-slate-500 leading-relaxed mb-8">お問い合わせありがとうございます。<br>2営業日以内にご返信いたします。</p>
+                    <a href="index.html" class="inline-flex items-center gap-2 bg-primary text-white px-8 py-4 rounded-xl font-bold font-display text-sm tracking-widest uppercase">
+                        トップへ戻る <span class="material-symbols-outlined text-sm">home</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="lg:col-span-1 space-y-6">
+                <!-- FAQ -->
+                <div class="bg-slate-50 rounded-2xl p-7 border border-slate-100">
+                    <h3 class="font-bold font-display text-slate-900 mb-6 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary text-xl">quiz</span>
+                        よくあるご質問
+                    </h3>
+                    <div class="space-y-5">
+                        <div class="border-b border-slate-200 pb-5">
+                            <p class="font-bold text-slate-800 text-sm mb-2">Q. 初回相談は無料ですか？</p>
+                            <p class="text-slate-500 text-sm leading-relaxed">A. はい、初回ヒアリング・お見積もりは無料です。お気軽にご相談ください。</p>
+                        </div>
+                        <div class="border-b border-slate-200 pb-5">
+                            <p class="font-bold text-slate-800 text-sm mb-2">Q. 小規模なイベントでも対応可能ですか？</p>
+                            <p class="text-slate-500 text-sm leading-relaxed">A. 30名規模から対応しています。オンラインイベントにも対応可能です。</p>
+                        </div>
+                        <div class="border-b border-slate-200 pb-5">
+                            <p class="font-bold text-slate-800 text-sm mb-2">Q. 助成金申請のサポートはありますか？</p>
+                            <p class="text-slate-500 text-sm leading-relaxed">A. はい。文化庁・経産省・都道府県の各種補助金に対応した事業計画策定を支援します。</p>
+                        </div>
+                        <div>
+                            <p class="font-bold text-slate-800 text-sm mb-2">Q. プロジェクションマッピングの実績はありますか？</p>
+                            <p class="text-slate-500 text-sm leading-relaxed">A. プロジェクションマッピングを中心に多数の実績があります。文化財対応も可能です。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Direct contact -->
+                <div class="bg-primary rounded-2xl p-7 text-white">
+                    <h3 class="font-bold font-display text-base mb-4">直接メールでのご連絡</h3>
+                    <p class="text-white/70 text-sm leading-relaxed mb-5">フォームよりも直接メールをご希望の方はこちら。</p>
+                    <a href="mailto:info@water-fall.jp" class="flex items-center gap-3 bg-white/15 hover:bg-white/25 rounded-xl px-4 py-3 transition-colors group">
+                        <span class="material-symbols-outlined text-white text-xl">mail</span>
+                        <span class="font-display font-bold text-sm">info@water-fall.jp</span>
+                    </a>
+                </div>
+
+                <!-- Service links -->
+                <div class="bg-white rounded-2xl p-7 border border-slate-100">
+                    <h3 class="font-bold font-display text-slate-900 text-sm mb-5">関連ページ</h3>
+                    <ul class="space-y-3">
+                        <li>
+                            <a href="services.html" class="flex items-center gap-3 text-slate-600 hover:text-primary text-sm transition-colors group">
+                                <span class="material-symbols-outlined text-slate-300 group-hover:text-primary text-xl">arrow_forward</span>
+                                サービス詳細
+                            </a>
+                        </li>
+                        <li>
+                            <a href="services.html#plans" class="flex items-center gap-3 text-slate-600 hover:text-primary text-sm transition-colors group">
+                                <span class="material-symbols-outlined text-slate-300 group-hover:text-primary text-xl">arrow_forward</span>
+                                料金プラン
+                            </a>
+                        </li>
+                        <li>
+                            <a href="company.html" class="flex items-center gap-3 text-slate-600 hover:text-primary text-sm transition-colors group">
+                                <span class="material-symbols-outlined text-slate-300 group-hover:text-primary text-xl">arrow_forward</span>
+                                会社概要
+                            </a>
+                        </li>
+                        <li>
+                            <a href="index.html#works" class="flex items-center gap-3 text-slate-600 hover:text-primary text-sm transition-colors group">
+                                <span class="material-symbols-outlined text-slate-300 group-hover:text-primary text-xl">arrow_forward</span>
+                                制作実績
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-slate-900 text-white py-16 relative z-10">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-4 gap-10 mb-12">
+            <div class="md:col-span-2">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-8 h-8 bg-primary rounded-sm flex items-center justify-center">
+                        <span class="material-symbols-outlined text-white text-xl">waves</span>
+                    </div>
+                    <span class="text-lg font-bold tracking-tighter uppercase font-display">Water Fall <span class="text-primary">Inc.</span></span>
+                </div>
+                <p class="text-white/50 text-sm leading-loose max-w-sm">イベントの企画・演出・運営をトータルプロデュース。デジタルアートと伝統文化の融合で、感動体験を設計します。</p>
+            </div>
+            <div>
+                <p class="text-white/30 text-xs font-display tracking-widest uppercase mb-5">Navigation</p>
+                <ul class="space-y-3">
+                    <li><a href="index.html" class="text-white/60 hover:text-white text-sm transition-colors font-display">Home</a></li>
+                    <li><a href="services.html" class="text-white/60 hover:text-white text-sm transition-colors font-display">Services</a></li>
+                    <li><a href="company.html" class="text-white/60 hover:text-white text-sm transition-colors font-display">Company</a></li>
+                    <li><a href="contact.html" class="text-white text-sm font-display">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="text-white/30 text-xs font-display tracking-widest uppercase mb-5">Contact</p>
+                <p class="text-white/50 text-sm">info@water-fall.jp</p>
+                <p class="text-white/40 text-xs mt-2">〒104-0061 東京都中央区銀座1丁目</p>
+            </div>
+        </div>
+        <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p class="text-white/30 text-xs font-display">© 2024 WATER FALL Inc. All Rights Reserved.</p>
+            <p class="text-white/20 text-xs font-display">JACE（日本イベント産業振興協会）会員</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

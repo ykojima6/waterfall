@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>会社概要 | WATER FALL Inc. — イベント企画・制作・運営</title>
+    <meta name="description" content="WATER FALL Inc.（ウォーターフォール株式会社）の会社概要。代表挨拶・基本情報・沿革・事業内容。イベント企画・プロジェクションマッピング・文化事業のトータルプロデュース会社。">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { "primary": "#2547f4", "accent": "#ff6b00", "bg-light": "#F5F7FA" },
+                    fontFamily: { "display": ["Space Grotesk", "sans-serif"], "body": ["Noto Sans JP", "sans-serif"] },
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans JP', sans-serif; background: #FFFFFF; color: #1A202C; margin: 0; overflow-x: hidden; }
+        h1, h2, h3, h4, .font-display { font-family: 'Space Grotesk', sans-serif; }
+        .glass-panel { background: rgba(255,255,255,0.9); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 4px 24px rgba(0,0,0,0.04); }
+        .section-label { font-family: 'Space Grotesk', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.35em; text-transform: uppercase; color: #2547f4; }
+        #mobile-menu { display: none; }
+        #mobile-menu.open { display: flex; }
+        html { scroll-behavior: smooth; }
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-thumb { background: #2547f4; border-radius: 2px; }
+        #waterfall-canvas {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.55;
+            mix-blend-mode: multiply;
+        }
+        section, nav, header, footer { position: relative; z-index: 10; }
+
+        .profile-table { width: 100%; border-collapse: collapse; }
+        .profile-table tr { border-bottom: 1px solid #E2E8F0; }
+        .profile-table tr:last-child { border-bottom: none; }
+        .profile-table th { font-family: 'Noto Sans JP', sans-serif; font-weight: 500; color: #64748b; white-space: nowrap; vertical-align: top; padding: 1.25rem 2rem 1.25rem 0; width: 160px; font-size: 0.875rem; }
+        .profile-table td { font-family: 'Noto Sans JP', sans-serif; color: #1A202C; padding: 1.25rem 0; line-height: 1.85; font-size: 0.875rem; }
+
+        .timeline-item { position: relative; padding-left: 2rem; padding-bottom: 2rem; }
+        .timeline-item::before { content: ''; position: absolute; left: 0; top: 0.4rem; width: 10px; height: 10px; border-radius: 50%; background: #2547f4; border: 2px solid #fff; box-shadow: 0 0 0 2px #2547f4; }
+        .timeline-item::after { content: ''; position: absolute; left: 4px; top: 1.2rem; width: 2px; height: calc(100% - 0.5rem); background: #E2E8F0; }
+        .timeline-item:last-child::after { display: none; }
+        .timeline-item:last-child { padding-bottom: 0; }
+
+        .president-quote { border-left: 3px solid #2547f4; padding-left: 1.5rem; margin: 2rem 0; color: #334155; font-size: 1rem; line-height: 2; }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.createElement('canvas');
+            canvas.id = 'waterfall-canvas';
+            document.body.prepend(canvas);
+            const ctx = canvas.getContext('2d');
+            let width, height, particles = [];
+            const count = 100, baseSpeed = 0.9;
+            let scrollSpeed = 0;
+            const resize = () => { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; init(); };
+            class Particle {
+                constructor() { this.reset(); }
+                reset() { this.x = Math.random()*width; this.y = Math.random()*height-height; this.len = Math.random()*22+6; this.op = Math.random()*0.2+0.03; this.sp = Math.random()*0.6+baseSpeed; this.w = Math.random()*0.9+0.2; const h = Math.random()>0.8?200:228; this.col = `hsla(${h},80%,45%,`; }
+                update() { this.y += this.sp + scrollSpeed; if (this.y > height) { this.y = -this.len - Math.random()*60; this.x = Math.random()*width; this.reset(); } }
+                draw() { ctx.beginPath(); const g = ctx.createLinearGradient(this.x,this.y,this.x,this.y+this.len); g.addColorStop(0,this.col+'0)'); g.addColorStop(1,this.col+this.op+')'); ctx.strokeStyle=g; ctx.lineWidth=this.w; ctx.moveTo(this.x,this.y); ctx.lineTo(this.x,this.y+this.len); ctx.stroke(); }
+            }
+            function init() { particles = []; for (let i = 0; i < count; i++) particles.push(new Particle()); }
+            function animate() { ctx.clearRect(0,0,width,height); scrollSpeed *= 0.93; if (Math.abs(scrollSpeed)<0.05) scrollSpeed=0; particles.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animate); }
+            let lastY = window.scrollY;
+            window.addEventListener('scroll', () => { const d = window.scrollY-lastY; if (d>0) scrollSpeed = Math.min(scrollSpeed+d*0.02,10); lastY = window.scrollY; });
+            window.addEventListener('resize', resize);
+            resize(); animate();
+            document.getElementById('menu-btn').addEventListener('click', () => document.getElementById('mobile-menu').classList.toggle('open'));
+        });
+    </script>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="fixed top-0 w-full z-50 glass-panel border-b border-black/5">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-3 flex-shrink-0">
+            <div class="w-8 h-8 bg-primary rounded-sm flex items-center justify-center">
+                <span class="material-symbols-outlined text-white text-xl">waves</span>
+            </div>
+            <span class="text-lg font-bold tracking-tighter uppercase font-display text-slate-900">Water Fall <span class="text-primary">Inc.</span></span>
+        </a>
+        <div class="hidden md:flex items-center gap-8 text-xs font-bold tracking-[0.2em] uppercase font-display">
+            <a href="index.html" class="text-slate-500 hover:text-primary transition-colors">Home</a>
+            <a href="services.html" class="text-slate-500 hover:text-primary transition-colors">Services</a>
+            <a href="company.html" class="text-primary border-b border-primary pb-0.5">Company</a>
+        </div>
+        <a href="contact.html" class="hidden md:flex bg-primary hover:bg-primary/85 text-white px-5 py-2.5 rounded-lg font-bold font-display text-xs tracking-widest uppercase transition-all items-center gap-2 group">
+            Contact <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </a>
+        <button id="menu-btn" class="md:hidden p-2 flex flex-col gap-1.5">
+            <span class="w-5 h-0.5 bg-slate-800 block"></span><span class="w-5 h-0.5 bg-slate-800 block"></span><span class="w-3 h-0.5 bg-slate-800 block ml-auto"></span>
+        </button>
+    </div>
+    <div id="mobile-menu" class="flex-col items-center gap-6 py-8 border-t border-black/5 bg-white/97">
+        <a href="index.html" class="text-slate-600 text-xs font-bold tracking-widest uppercase font-display">Home</a>
+        <a href="services.html" class="text-slate-600 text-xs font-bold tracking-widest uppercase font-display">Services</a>
+        <a href="company.html" class="text-primary text-xs font-bold tracking-widest uppercase font-display">Company</a>
+        <a href="contact.html" class="bg-primary text-white px-8 py-3 rounded-lg font-bold font-display text-xs tracking-widest">Contact</a>
+    </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<header class="pt-40 pb-24 px-6 bg-white relative overflow-hidden">
+    <div class="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/4 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto">
+        <nav class="flex items-center gap-2 text-xs text-slate-400 font-display tracking-wider mb-8">
+            <a href="index.html" class="hover:text-primary transition-colors">HOME</a>
+            <span class="material-symbols-outlined text-sm">chevron_right</span>
+            <span class="text-slate-600">COMPANY</span>
+        </nav>
+        <span class="section-label mb-5 block">About Us</span>
+        <h1 class="text-5xl md:text-7xl font-bold font-display text-slate-900 tracking-tighter mb-8 leading-tight">会社概要</h1>
+        <p class="text-slate-500 text-base md:text-lg leading-relaxed max-w-2xl">
+            WATER FALL Inc. は、イベント企画・空間演出・プロジェクションマッピングを一貫してプロデュースする<br class="hidden md:block">
+            東京・銀座のイベントプロデュース会社です。
+        </p>
+    </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- STATS -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="bg-primary text-white py-14 relative z-10">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-y-2 divide-white/10 md:divide-y-0 md:divide-x md:divide-white/15">
+            <div class="py-4 md:py-0">
+                <p class="font-display font-bold text-5xl tracking-tighter">2021</p>
+                <p class="text-white/60 text-xs font-display tracking-[0.25em] uppercase mt-2">Founded</p>
+                <p class="text-white/50 text-xs mt-1">設立年</p>
+            </div>
+            <div class="py-4 md:py-0">
+                <p class="font-display font-bold text-5xl tracking-tighter">100<span class="text-accent text-3xl font-bold">+</span></p>
+                <p class="text-white/60 text-xs font-display tracking-[0.25em] uppercase mt-2">Events Produced</p>
+                <p class="text-white/50 text-xs mt-1">イベント制作実績</p>
+            </div>
+            <div class="py-4 md:py-0">
+                <p class="font-display font-bold text-5xl tracking-tighter">15</p>
+                <p class="text-white/60 text-xs font-display tracking-[0.25em] uppercase mt-2">Cities Nationwide</p>
+                <p class="text-white/50 text-xs mt-1">全国展開都市数</p>
+            </div>
+            <div class="py-4 md:py-0">
+                <p class="font-display font-bold text-5xl tracking-tighter">98<span class="text-accent text-3xl font-bold">%</span></p>
+                <p class="text-white/60 text-xs font-display tracking-[0.25em] uppercase mt-2">Client Satisfaction</p>
+                <p class="text-white/50 text-xs mt-1">クライアント満足度</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- COMPANY PROFILE TABLE -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="py-28 bg-slate-50">
+    <div class="max-w-5xl mx-auto px-6">
+        <span class="section-label mb-5 block">Company Profile</span>
+        <h2 class="text-3xl md:text-4xl font-bold font-display text-slate-900 tracking-tighter mb-16">基本情報</h2>
+        <div class="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm">
+            <div class="overflow-x-auto">
+                <table class="profile-table">
+                    <tbody>
+                        <tr>
+                            <th>会社名</th>
+                            <td><span class="font-bold">WATER FALL Inc.</span>（ウォーターフォール株式会社）</td>
+                        </tr>
+                        <tr>
+                            <th>設立</th>
+                            <td>令和3年（2021年）7月21日</td>
+                        </tr>
+                        <tr>
+                            <th>代表取締役</th>
+                            <td>安西 康乃（Yasuno Anzai）</td>
+                        </tr>
+                        <tr>
+                            <th>資本金</th>
+                            <td>800万円</td>
+                        </tr>
+                        <tr>
+                            <th>所在地</th>
+                            <td>〒104-0061<br>東京都中央区銀座1丁目<br><span class="text-slate-400 text-xs">※詳細住所はお問い合わせください</span></td>
+                        </tr>
+                        <tr>
+                            <th>メール</th>
+                            <td><a href="mailto:info@water-fall.jp" class="text-primary hover:underline">info@water-fall.jp</a></td>
+                        </tr>
+                        <tr>
+                            <th>事業内容</th>
+                            <td>
+                                イベント企画・制作・運営全般<br>
+                                空間演出（照明・音響・映像設計）<br>
+                                プロジェクションマッピング制作<br>
+                                企業式典・社員総会・製品発表会の運営<br>
+                                文化事業・地域振興イベントの企画制作<br>
+                                配信・中継技術サービス
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>取引先業種</th>
+                            <td>IT・製造業・金融・行政・非営利法人・文化財団・教育機関 ほか</td>
+                        </tr>
+                        <tr>
+                            <th>対応規模</th>
+                            <td>30名規模の社内研修から、10,000名規模の記念式典まで対応</td>
+                        </tr>
+                        <tr>
+                            <th>加盟団体</th>
+                            <td>一般社団法人 日本イベント産業振興協会（JACE）</td>
+                        </tr>
+                        <tr>
+                            <th>保険</th>
+                            <td>イベント賠償責任保険 加入済み</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- MISSION / VISION -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-20">
+            <span class="section-label mb-4 block">Mission & Vision</span>
+            <h2 class="text-3xl md:text-4xl font-bold font-display text-slate-900 tracking-tighter">私たちのミッション</h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+            <!-- MISSION -->
+            <div class="group bg-white rounded-2xl border border-slate-100 overflow-hidden hover:border-primary/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-200/60">
+                <div class="aspect-video overflow-hidden relative">
+                    <img src="Images/company_mission_v2.jpg" alt="Mission" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent"></div>
+                </div>
+                <div class="p-8 text-center">
+                    <span class="material-symbols-outlined text-primary text-3xl mb-4 block">target</span>
+                    <p class="text-xs font-display tracking-widest uppercase text-slate-400 mb-3">Mission</p>
+                    <h3 class="text-xl font-bold font-display text-slate-900 mb-4 tracking-tight">感動を、設計する。</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">イベントが終わった翌日、参加者が誰かに話したくなる体験をつくること。それを私たちの使命とします。</p>
+                </div>
+            </div>
+            <!-- VISION -->
+            <div class="group bg-white rounded-2xl border-2 border-primary/20 overflow-hidden hover:border-primary/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10">
+                <div class="aspect-video overflow-hidden relative">
+                    <img src="Images/company_vision.jpg" alt="Vision" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent"></div>
+                </div>
+                <div class="p-8 text-center bg-primary/4">
+                    <span class="material-symbols-outlined text-primary text-3xl mb-4 block">visibility</span>
+                    <p class="text-xs font-display tracking-widest uppercase text-primary mb-3">Vision</p>
+                    <h3 class="text-xl font-bold font-display text-slate-900 mb-4 tracking-tight">文化と技術で、<br>日本を動かす。</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">伝統文化とデジタル技術の融合を通じて、日本の文化的価値を世界に発信し、地域社会の活性化に貢献します。</p>
+                </div>
+            </div>
+            <!-- VALUES -->
+            <div class="group bg-white rounded-2xl border border-slate-100 overflow-hidden hover:border-primary/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-200/60">
+                <div class="aspect-video overflow-hidden relative">
+                    <img src="Images/service_bg_01.jpg" alt="Values" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent"></div>
+                </div>
+                <div class="p-8 text-center">
+                    <span class="material-symbols-outlined text-primary text-3xl mb-4 block">handshake</span>
+                    <p class="text-xs font-display tracking-widest uppercase text-slate-400 mb-3">Values</p>
+                    <h3 class="text-xl font-bold font-display text-slate-900 mb-4 tracking-tight">真剣に、誠実に、<br>クリエイティブに。</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">クライアントの目的を深く理解し、最高のチームワークで期待を超える成果を届けます。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- HISTORY -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="py-28 bg-slate-50">
+    <div class="max-w-5xl mx-auto px-6">
+        <span class="section-label mb-5 block">History</span>
+        <h2 class="text-3xl md:text-4xl font-bold font-display text-slate-900 tracking-tighter mb-16">沿革</h2>
+        <div class="grid md:grid-cols-2 gap-16 items-start">
+            <div>
+                <div class="timeline-item">
+                    <div class="flex items-center gap-4 mb-1">
+                        <span class="font-bold font-display text-primary text-sm">2021年 7月</span>
+                    </div>
+                    <p class="text-slate-600 text-sm leading-relaxed">WATER FALL Inc.（ウォーターフォール株式会社）設立。令和3年7月21日、東京都中央区銀座にて事業開始。</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="flex items-center gap-4 mb-1">
+                        <span class="font-bold font-display text-primary text-sm">2022年 1月</span>
+                    </div>
+                    <p class="text-slate-600 text-sm leading-relaxed">初の企業式典プロデュース（東京都内・参加者200名）。空間演出・映像制作・当日運営を一括受注。</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="flex items-center gap-4 mb-1">
+                        <span class="font-bold font-display text-primary text-sm">2022年 6月</span>
+                    </div>
+                    <p class="text-slate-600 text-sm leading-relaxed">プロジェクションマッピング事業を本格開始。京都市内の文化財を対象にした試験プロジェクトを実施。</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="flex items-center gap-4 mb-1">
+                        <span class="font-bold font-display text-primary text-sm">2022年 11月</span>
+                    </div>
+                    <p class="text-slate-600 text-sm leading-relaxed">プロジェクションマッピングイベント第1回を開催。延べ来場者2,000名を達成し、地域振興への貢献が評価される。</p>
+                </div>
+            </div>
+            <div>
+                <div class="timeline-item">
+                    <div class="flex items-center gap-4 mb-1">
+                        <span class="font-bold font-display text-primary text-sm">2023年 4月</span>
+                    </div>
+                    <p class="text-slate-600 text-sm leading-relaxed">一般社団法人 日本イベント産業振興協会（JACE）に加盟。</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="flex items-center gap-4 mb-1">
+                        <span class="font-bold font-display text-primary text-sm">2023年 10月</span>
+                    </div>
+                    <p class="text-slate-600 text-sm leading-relaxed">プロジェクションマッピングイベント第2回を奈良・金沢の2都市で開催。文化庁関連助成金の採択を受ける。</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="flex items-center gap-4 mb-1">
+                        <span class="font-bold font-display text-primary text-sm">2024年 2月</span>
+                    </div>
+                    <p class="text-slate-600 text-sm leading-relaxed">イベント賠償責任保険に加入。</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="flex items-center gap-4 mb-1">
+                        <span class="font-bold font-display text-primary text-sm">2025年 3月</span>
+                    </div>
+                    <p class="text-slate-600 text-sm leading-relaxed">プロジェクションマッピングイベント第3回を開催。延べ来場者5,000名を達成。全国15都市でのイベントプロデュース実績を確立。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- TEAM IMAGE -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="py-28 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+            <div>
+                <span class="section-label mb-5 block">Our Team</span>
+                <h2 class="text-3xl md:text-4xl font-bold font-display text-slate-900 tracking-tighter mb-8">
+                    チームについて
+                </h2>
+                <p class="text-slate-600 leading-loose mb-6">
+                    WATER FALL Inc. のチームは、イベントディレクター・映像クリエイター・空間デザイナー・照明エンジニア・プロダクションマネージャーなど、各分野のプロフェッショナルで構成されています。
+                </p>
+                <p class="text-slate-600 leading-loose mb-8">
+                    フリーランスとの柔軟なネットワークも活用し、イベントの規模・性質に応じて最適なチーム編成で対応します。
+                </p>
+                <div class="space-y-3">
+                    <div class="flex items-center gap-3 text-slate-700 text-sm">
+                        <span class="material-symbols-outlined text-primary text-lg flex-shrink-0">person</span>
+                        イベントディレクター・プロデューサー
+                    </div>
+                    <div class="flex items-center gap-3 text-slate-700 text-sm">
+                        <span class="material-symbols-outlined text-primary text-lg flex-shrink-0">movie_edit</span>
+                        映像クリエイター・CGアーティスト
+                    </div>
+                    <div class="flex items-center gap-3 text-slate-700 text-sm">
+                        <span class="material-symbols-outlined text-primary text-lg flex-shrink-0">architecture</span>
+                        空間デザイナー・照明エンジニア
+                    </div>
+                    <div class="flex items-center gap-3 text-slate-700 text-sm">
+                        <span class="material-symbols-outlined text-primary text-lg flex-shrink-0">headset_mic</span>
+                        プロダクションマネージャー・当日スタッフ
+                    </div>
+                </div>
+            </div>
+            <div class="relative">
+                <div class="aspect-video rounded-2xl overflow-hidden shadow-2xl shadow-slate-200">
+                    <img src="Images/company_tam.jpg" alt="WATER FALL チーム" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="py-20 bg-primary text-white relative z-10 overflow-hidden">
+    <div class="absolute top-0 right-0 w-80 h-80 bg-accent/20 rounded-full blur-3xl"></div>
+    <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+        <h2 class="text-3xl md:text-5xl font-bold font-display tracking-tighter mb-6">お気軽にご相談ください。</h2>
+        <p class="text-white/70 text-base leading-relaxed mb-10">初回ヒアリングは無料です。どんな段階からでもご相談に応じます。</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="contact.html" class="inline-flex items-center justify-center gap-2 bg-white text-primary hover:bg-white/90 px-10 py-5 rounded-xl font-bold font-display text-sm tracking-widest uppercase transition-all group shadow-xl">
+                お問い合わせ <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </a>
+            <a href="services.html" class="inline-flex items-center justify-center gap-2 border-2 border-white/40 hover:border-white text-white px-10 py-5 rounded-xl font-bold font-display text-sm tracking-widest uppercase transition-all">
+                サービスを見る
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-slate-900 text-white py-16 relative z-10">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-4 gap-10 mb-12">
+            <div class="md:col-span-2">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-8 h-8 bg-primary rounded-sm flex items-center justify-center">
+                        <span class="material-symbols-outlined text-white text-xl">waves</span>
+                    </div>
+                    <span class="text-lg font-bold tracking-tighter uppercase font-display">Water Fall <span class="text-primary">Inc.</span></span>
+                </div>
+                <p class="text-white/50 text-sm leading-loose max-w-sm">イベントの企画・演出・運営をトータルプロデュース。デジタルアートと伝統文化の融合で、感動体験を設計します。</p>
+            </div>
+            <div>
+                <p class="text-white/30 text-xs font-display tracking-widest uppercase mb-5">Navigation</p>
+                <ul class="space-y-3">
+                    <li><a href="index.html" class="text-white/60 hover:text-white text-sm transition-colors font-display">Home</a></li>
+                    <li><a href="services.html" class="text-white/60 hover:text-white text-sm transition-colors font-display">Services</a></li>
+                    <li><a href="index.html#works" class="text-white/60 hover:text-white text-sm transition-colors font-display">Works</a></li>
+                    <li><a href="company.html" class="text-white text-sm font-display">Company</a></li>
+                    <li><a href="contact.html" class="text-white/60 hover:text-white text-sm transition-colors font-display">Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="text-white/30 text-xs font-display tracking-widest uppercase mb-5">Contact</p>
+                <p class="text-white/50 text-sm">info@water-fall.jp</p>
+                <p class="text-white/40 text-xs mt-2">〒104-0061 東京都中央区銀座1丁目</p>
+            </div>
+        </div>
+        <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p class="text-white/30 text-xs font-display">© 2024 WATER FALL Inc. All Rights Reserved.</p>
+            <p class="text-white/20 text-xs font-display">JACE（日本イベント産業振興協会）会員</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
