@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>企業研修・人材育成 | WATER FALL Inc.</title>
+    <meta name="description" content="WATER FALL Inc.の企業研修プログラム。MVP研修（ミッション・ビジョン・フィロソフィー策定）・組織力強化・エグゼクティブコーチングで、組織の「在り方」を言語化し行動変容を生み出します。">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2547f4",
+                        "accent": "#ff6b00",
+                        "bg-light": "#F5F7FA",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"],
+                        "body": ["Noto Sans JP", "sans-serif"],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Noto Sans JP', sans-serif; background: #FFFFFF; color: #1A202C; margin: 0; overflow-x: hidden; }
+        h1, h2, h3, h4, .font-display { font-family: 'Inter', sans-serif; }
+        .glass-panel { background: rgba(255,255,255,0.9); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 4px 24px rgba(0,0,0,0.04); }
+        .section-label { font-family: 'Inter', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.35em; text-transform: uppercase; color: #2547f4; }
+        .gradient-text { background: linear-gradient(135deg, #2547f4 0%, #ff6b00 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        #mobile-menu { display: none; }
+        #mobile-menu.open { display: flex; }
+        html { scroll-behavior: smooth; }
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-thumb { background: #2547f4; border-radius: 2px; }
+        #waterfall-canvas {
+            position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.55;
+            mix-blend-mode: multiply;
+        }
+        section, nav, header, footer { position: relative; z-index: 10; }
+        .training-card { transition: all 0.3s cubic-bezier(0.4,0,0.2,1); }
+        .training-card:hover { transform: translateY(-6px); box-shadow: 0 24px 48px rgba(37,71,244,0.12); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-up { animation: fadeInUp 0.8s ease forwards; }
+        .animate-on-scroll { opacity: 0; transform: translateY(24px); transition: all 0.7s ease; }
+        .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+        .slide-left { opacity: 0; transform: translateX(-40px); transition: all 0.7s ease; }
+        .slide-right { opacity: 0; transform: translateX(40px); transition: all 0.7s ease; }
+        .slide-left.visible, .slide-right.visible { opacity: 1; transform: translateX(0); }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.createElement('canvas');
+            canvas.id = 'waterfall-canvas';
+            document.body.prepend(canvas);
+            const ctx = canvas.getContext('2d');
+            let width, height, particles = [];
+            const count = 100, baseSpeed = 0.9;
+            let scrollSpeed = 0;
+            const resize = () => { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; init(); };
+            class Particle {
+                constructor() { this.reset(); }
+                reset() { this.x = Math.random()*width; this.y = Math.random()*height-height; this.len = Math.random()*22+6; this.op = Math.random()*0.2+0.03; this.sp = Math.random()*0.6+baseSpeed; this.w = Math.random()*0.9+0.2; const h = Math.random()>0.8?200:228; this.col = `hsla(${h},80%,45%,`; }
+                update() { this.y += this.sp + scrollSpeed; if (this.y > height) { this.y = -this.len - Math.random()*60; this.x = Math.random()*width; this.reset(); } }
+                draw() { ctx.beginPath(); const g = ctx.createLinearGradient(this.x,this.y,this.x,this.y+this.len); g.addColorStop(0,this.col+'0)'); g.addColorStop(1,this.col+this.op+')'); ctx.strokeStyle=g; ctx.lineWidth=this.w; ctx.moveTo(this.x,this.y); ctx.lineTo(this.x,this.y+this.len); ctx.stroke(); }
+            }
+            function init() { particles = []; for (let i = 0; i < count; i++) particles.push(new Particle()); }
+            function animate() { ctx.clearRect(0,0,width,height); scrollSpeed *= 0.93; if (Math.abs(scrollSpeed)<0.05) scrollSpeed=0; particles.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animate); }
+            let lastY = window.scrollY;
+            window.addEventListener('scroll', () => { const d = window.scrollY-lastY; if (d>0) scrollSpeed = Math.min(scrollSpeed+d*0.022,10); lastY = window.scrollY; });
+            window.addEventListener('resize', resize);
+            resize(); animate();
+            document.getElementById('menu-btn').addEventListener('click', () => document.getElementById('mobile-menu').classList.toggle('open'));
+        });
+    </script>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="fixed top-0 w-full z-50 glass-panel border-b border-black/5">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+        <a href="index.html" class="flex items-center gap-3 flex-shrink-0">
+            <div class="w-8 h-8 bg-primary rounded-sm flex items-center justify-center">
+                <span class="material-symbols-outlined text-white text-xl">waves</span>
+            </div>
+            <span class="text-lg font-bold tracking-tighter uppercase font-display text-slate-900">Water Fall <span class="text-primary">Inc.</span></span>
+        </a>
+        <div class="hidden md:flex items-center gap-8 text-xs font-bold tracking-[0.2em] uppercase font-display">
+            <a href="index.html" class="text-slate-500 hover:text-primary transition-colors">Home</a>
+            <a href="services.html" class="text-slate-500 hover:text-primary transition-colors">Services</a>
+            <a href="method.html" class="text-slate-500 hover:text-primary transition-colors">Method</a>
+            <a href="programs.html" class="text-primary border-b border-primary pb-0.5">Programs</a>
+            <a href="company.html" class="text-slate-500 hover:text-primary transition-colors">Company</a>
+        </div>
+        <a href="contact.html" class="hidden md:flex bg-primary hover:bg-primary/85 text-white px-5 py-2.5 rounded-lg font-bold font-display text-xs tracking-widest uppercase transition-all items-center gap-2 group">
+            Contact <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        </a>
+        <button id="menu-btn" class="md:hidden p-2 flex flex-col gap-1.5">
+            <span class="w-5 h-0.5 bg-slate-800 block"></span><span class="w-5 h-0.5 bg-slate-800 block"></span><span class="w-3 h-0.5 bg-slate-800 block ml-auto"></span>
+        </button>
+    </div>
+    <div id="mobile-menu" class="flex-col items-center gap-6 py-8 border-t border-black/5 bg-white/97">
+        <a href="index.html" class="text-slate-600 text-xs font-bold tracking-widest uppercase font-display">Home</a>
+        <a href="services.html" class="text-slate-600 text-xs font-bold tracking-widest uppercase font-display">Services</a>
+        <a href="method.html" class="text-slate-600 text-xs font-bold tracking-widest uppercase font-display">Method</a>
+        <a href="programs.html" class="text-primary text-xs font-bold tracking-widest uppercase font-display">Programs</a>
+        <a href="company.html" class="text-slate-600 text-xs font-bold tracking-widest uppercase font-display">Company</a>
+        <a href="contact.html" class="bg-primary text-white px-8 py-3 rounded-lg font-bold font-display text-xs tracking-widest">Contact</a>
+    </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- HERO -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="relative min-h-screen flex flex-col justify-center overflow-hidden pt-20" style="background:#0d1a5c;">
+    <div class="absolute inset-0 z-0">
+        <img src="images/training_hero.jpg" alt="" class="w-full h-full object-cover object-center" onerror="this.style.display='none'">
+        <div class="absolute inset-0 bg-gradient-to-r from-slate-900/85 via-slate-900/60 to-slate-900/30"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent"></div>
+    </div>
+    <div class="relative z-20 max-w-7xl mx-auto px-6 py-20 w-full">
+        <div class="max-w-2xl fade-up">
+
+            <span class="inline-block text-white/60 text-xs font-bold font-display tracking-[0.3em] uppercase border border-white/30 px-4 py-1.5 rounded-sm mb-4">Science-Based Organizational Transformation</span><br>
+            <span class="text-white/50 text-xs font-bold font-display tracking-[0.35em] uppercase mb-6 block">Corporate Training</span>
+            <h1 class="text-5xl md:text-7xl font-bold leading-[1.1] tracking-tighter text-white mb-6">
+                <span class="md:whitespace-nowrap">組織の「在り方」を、</span><br><span class="gradient-text">言語化する。</span>
+            </h1>
+            <p class="text-white/75 text-base md:text-lg leading-loose mb-10 max-w-xl">
+                セッション形式の研修で、企業のミッション・ビジョン・フィロソフィーを策定。組織の方向性を明確にし、社員のエンゲージメントを高めるプログラムを提供します。
+            </p>
+            <div class="flex flex-wrap gap-4">
+                <a href="contact.html" class="bg-primary hover:bg-primary/85 text-white px-8 py-4 rounded-lg font-bold font-display text-sm tracking-widest uppercase transition-all flex items-center gap-2 group shadow-lg shadow-primary/30">
+                    無料相談はこちら
+                    <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1">
+        <span class="text-white/50 text-xs font-display tracking-[0.3em] uppercase">Scroll</span>
+        <span class="material-symbols-outlined text-white/50 text-3xl animate-bounce">expand_more</span>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- PROGRAM OVERVIEW -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="training" class="py-28 bg-slate-50 relative z-10">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16 animate-on-scroll">
+            <span class="section-label mb-4 block">Programs</span>
+            <h2 class="text-4xl md:text-5xl font-bold font-display text-slate-900 tracking-tighter">組織の「在り方」を、言語化する。</h2>
+            <p class="text-slate-500 mt-4 text-sm max-w-xl mx-auto">脳科学とコーチングが融合した、行動変容プログラム。</p>
+        </div>
+        <!-- Program Features -->
+        <div class="grid md:grid-cols-3 gap-6 mb-14">
+            <div class="bg-white rounded-2xl border border-slate-100 p-7 text-center animate-on-scroll">
+                <div class="w-12 h-12 bg-primary/8 rounded-2xl flex items-center justify-center mb-5 mx-auto">
+                    <span class="material-symbols-outlined text-primary text-2xl">science</span>
+                </div>
+                <h4 class="text-sm font-bold font-display text-slate-900 mb-2">Science-Based</h4>
+                <p class="text-slate-500 text-xs leading-relaxed">脳科学・認知心理学・行動経済学の最新知見に基づいて設計。再現性のある変化を起こします。</p>
+            </div>
+            <div class="bg-white rounded-2xl border border-slate-100 p-7 text-center animate-on-scroll">
+                <div class="w-12 h-12 bg-primary/8 rounded-2xl flex items-center justify-center mb-5 mx-auto">
+                    <span class="material-symbols-outlined text-primary text-2xl">record_voice_over</span>
+                </div>
+                <h4 class="text-sm font-bold font-display text-slate-900 mb-2">Coaching-Led</h4>
+                <p class="text-slate-500 text-xs leading-relaxed">ティーチングではなくコーチングを中心に。参加者自身の気づきと内発的動機から変化が起きる場を設計。</p>
+            </div>
+            <div class="bg-white rounded-2xl border border-slate-100 p-7 text-center animate-on-scroll">
+                <div class="w-12 h-12 bg-primary/8 rounded-2xl flex items-center justify-center mb-5 mx-auto">
+                    <span class="material-symbols-outlined text-primary text-2xl">workspace_premium</span>
+                </div>
+                <h4 class="text-sm font-bold font-display text-slate-900 mb-2">Experience-Embedded</h4>
+                <p class="text-slate-500 text-xs leading-relaxed">学習を研修室の中で終わらせない。イベント体験との連携で、感動と学習をリンクさせて記憶に定着。</p>
+            </div>
+        </div>
+        <!-- 3 Programs -->
+        <div class="grid md:grid-cols-3 gap-6 mb-14">
+            <div class="bg-white rounded-2xl border border-slate-100 p-8 hover:shadow-xl hover:shadow-primary/8 transition-all duration-300 hover:-translate-y-1 animate-on-scroll">
+                <div class="w-12 h-12 bg-primary/8 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                    <span class="material-symbols-outlined text-primary text-2xl">psychology</span>
+                </div>
+                <h3 class="text-lg font-bold font-display text-slate-900 mb-2">MVP研修</h3>
+                <p class="text-xs font-bold font-display tracking-widest uppercase text-primary mb-3">Mission × Vision × Philosophy</p>
+                <p class="text-slate-500 text-sm leading-relaxed mb-4">GROWモデルを活用した対話形式で、組織固有のMission・Vision・Philosophyを言語化。全社員が腹落ちする言葉を生み出します。</p>
+                <div class="flex items-center gap-2 text-xs text-slate-400 font-display mb-3">
+                    <span class="material-symbols-outlined text-base">person</span> 経営者・経営幹部・管理職
+                </div>
+                <span class="inline-flex items-center gap-1.5 text-xs text-primary bg-primary/5 border border-primary/15 px-3 py-1.5 rounded-full mb-5">
+                    <span class="material-symbols-outlined text-xs">neurology</span> 自己決定理論 × 集合的効力感
+                </span>
+                <br>
+                <a href="#mvp" class="inline-flex items-center gap-1 text-primary text-xs font-bold font-display tracking-widest uppercase">
+                    詳しく見る <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </a>
+            </div>
+            <div class="bg-white rounded-2xl border border-slate-100 p-8 hover:shadow-xl hover:shadow-primary/8 transition-all duration-300 hover:-translate-y-1 animate-on-scroll">
+                <div class="w-12 h-12 bg-primary/8 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                    <span class="material-symbols-outlined text-primary text-2xl">groups</span>
+                </div>
+                <h3 class="text-lg font-bold font-display text-slate-900 mb-2">組織力強化・チームビルディング研修</h3>
+                <p class="text-xs font-bold font-display tracking-widest uppercase text-primary mb-3">Team × Engagement × Performance</p>
+                <p class="text-slate-500 text-sm leading-relaxed mb-4">心理的安全性の構築から始め、チームビルディングゲーム・対話ワークを通じて「一緒に動ける組織」を形成します。</p>
+                <div class="flex items-center gap-2 text-xs text-slate-400 font-display mb-3">
+                    <span class="material-symbols-outlined text-base">people</span> 部門チーム・プロジェクトメンバー
+                </div>
+                <span class="inline-flex items-center gap-1.5 text-xs text-primary bg-primary/5 border border-primary/15 px-3 py-1.5 rounded-full mb-5">
+                    <span class="material-symbols-outlined text-xs">neurology</span> オキシトシン効果 × 集合的フロー
+                </span>
+                <br>
+                <a href="#team" class="inline-flex items-center gap-1 text-primary text-xs font-bold font-display tracking-widest uppercase">
+                    詳しく見る <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </a>
+            </div>
+            <div class="bg-white rounded-2xl border border-slate-100 p-8 hover:shadow-xl hover:shadow-primary/8 transition-all duration-300 hover:-translate-y-1 animate-on-scroll">
+                <div class="w-12 h-12 bg-primary/8 rounded-2xl flex items-center justify-center mb-6 mx-auto">
+                    <span class="material-symbols-outlined text-primary text-2xl">self_improvement</span>
+                </div>
+                <h3 class="text-lg font-bold font-display text-slate-900 mb-2">エグゼクティブコーチング</h3>
+                <p class="text-xs font-bold font-display tracking-widest uppercase text-primary mb-3">1on1 × Leadership × Transformation</p>
+                <p class="text-slate-500 text-sm leading-relaxed mb-4">プロフェッショナルコーチによる1on1セッション。GROWモデル・承認技法・内省メソッドで、経営者の思考と行動を深化させます。</p>
+                <div class="flex items-center gap-2 text-xs text-slate-400 font-display mb-3">
+                    <span class="material-symbols-outlined text-base">stars</span> 経営者・役員・次世代リーダー
+                </div>
+                <span class="inline-flex items-center gap-1.5 text-xs text-primary bg-primary/5 border border-primary/15 px-3 py-1.5 rounded-full mb-5">
+                    <span class="material-symbols-outlined text-xs">neurology</span> 前頭前野活性化 × 内発的動機づけ
+                </span>
+                <br>
+                <a href="#coaching" class="inline-flex items-center gap-1 text-primary text-xs font-bold font-display tracking-widest uppercase">
+                    詳しく見る <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- WATER FALL MVP -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="bg-slate-950 relative z-10">
+    <div class="max-w-7xl mx-auto px-6 pt-16 pb-6 text-center animate-on-scroll">
+        <p class="text-white/40 text-xs font-bold font-display tracking-[0.35em] uppercase mb-3">Our MVP</p>
+        <h2 class="text-3xl md:text-4xl font-bold font-display text-white tracking-tighter">WATER FALL が体現するもの</h2>
+        <p class="text-white/50 text-sm mt-4 max-w-xl mx-auto leading-relaxed">自社のMVPを言語化し、日々の事業で体現する——これが、私たちの研修の根拠です。</p>
+    </div>
+    <div class="grid md:grid-cols-3">
+        <!-- Mission -->
+        <div class="relative overflow-hidden group" style="height:420px;">
+            <img src="images/mvp_mission_earth_golden.jpg" alt="Mission" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-900/50 to-transparent"></div>
+            <div class="absolute inset-0 flex flex-col justify-end p-10">
+                <p class="text-white/60 text-xs font-bold font-display tracking-[0.35em] uppercase mb-3">Mission</p>
+                <p class="text-white text-4xl font-bold font-display tracking-tighter leading-tight mb-3">地球をハグする</p>
+                <p class="text-white/60 text-sm leading-relaxed">一つひとつの感動体験が、<br>人と地球をやさしく繋ぐ。</p>
+            </div>
+        </div>
+        <!-- Vision -->
+        <div class="relative overflow-hidden group" style="height:420px;">
+            <img src="images/mvp_vision_world_network_japan.jpg" alt="Vision" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+            <div class="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/55 to-primary/10"></div>
+            <div class="absolute inset-0 flex flex-col justify-end p-10">
+                <p class="text-white/60 text-xs font-bold font-display tracking-[0.35em] uppercase mb-3">Vision</p>
+                <p class="text-white text-4xl font-bold font-display tracking-tighter leading-tight mb-3">2,400万人を繋ぐ</p>
+                <p class="text-white/70 text-sm leading-relaxed">イベントと教育の両輪で、<br>その数字に向かい続ける。</p>
+            </div>
+        </div>
+        <!-- Philosophy -->
+        <div class="relative overflow-hidden group" style="height:420px;">
+            <img src="images/mvp_philosophy_ginza_together.jpg" alt="Philosophy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-900/50 to-transparent"></div>
+            <div class="absolute inset-0 flex flex-col justify-end p-10">
+                <p class="text-white/60 text-xs font-bold font-display tracking-[0.35em] uppercase mb-3">Philosophy</p>
+                <p class="text-white text-4xl font-bold font-display tracking-tighter leading-tight mb-3">共に</p>
+                <p class="text-white/60 text-sm leading-relaxed">クライアントとともに、<br>参加者とともに、社会とともに。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- PROGRAMS -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="programs" class="py-28 bg-white relative z-10">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-20 animate-on-scroll">
+            <span class="section-label mb-4 block">Training Programs</span>
+            <h2 class="text-4xl md:text-5xl font-bold font-display text-slate-900 tracking-tighter">研修プログラム一覧</h2>
+            <p class="text-slate-500 mt-4 text-sm max-w-xl mx-auto">企業の課題に合わせて3つのプログラムをご用意しています。</p>
+        </div>
+
+        <!-- MVP研修 -->
+        <div id="mvp" class="grid md:grid-cols-2 gap-16 items-center mb-28">
+            <div class="relative slide-left">
+                <div class="relative aspect-video rounded-2xl overflow-hidden shadow-2xl shadow-primary/15">
+                    <img src="images/training_mvp.jpg" alt="MVP研修" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/30 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6">
+                        <span class="text-white/50 text-xs font-bold font-display tracking-[0.3em] uppercase mb-2 block">Program 01</span>
+                        <h3 class="text-2xl font-bold font-display text-white tracking-tighter leading-tight mb-1">MVP研修</h3>
+                        <p class="text-white/60 text-xs font-display tracking-wider">Mission · Vision · Philosophy</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-right">
+                <span class="section-label mb-4 block">Program 01</span>
+                <h3 class="text-3xl md:text-4xl font-bold font-display text-slate-900 tracking-tighter mb-2">MVP研修</h3>
+                <p class="text-primary font-bold font-display text-sm tracking-widest uppercase mb-6">ミッション・ビジョン・フィロソフィー策定</p>
+                <div class="bg-primary/5 border border-primary/15 rounded-xl p-5 mb-6">
+                    <p class="font-bold text-slate-800 text-sm font-display mb-2">こんな課題をお持ちの方へ</p>
+                    <ul class="space-y-1.5 text-slate-600 text-sm">
+                        <li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-base flex-shrink-0 mt-0.5">check_circle</span>会社の方向性が社員に伝わっていない</li>
+                        <li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-base flex-shrink-0 mt-0.5">check_circle</span>採用や評価の基準が明確でない</li>
+                        <li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-base flex-shrink-0 mt-0.5">check_circle</span>幹部と現場の認識にズレを感じる</li>
+                    </ul>
+                </div>
+                <p class="text-slate-600 leading-loose mb-6 text-sm">
+                    対話型セッションを通じて、経営者・幹部が自社のミッション・ビジョン・フィロソフィーを言語化。組織の「在り方」を明文化することで、採用・評価・組織文化の軸を作ります。
+                </p>
+                <div class="flex flex-wrap gap-3">
+                    <span class="bg-primary/8 text-primary text-xs px-3 py-1.5 rounded-full font-display font-bold">対話型セッション</span>
+                    <span class="bg-primary/8 text-primary text-xs px-3 py-1.5 rounded-full font-display font-bold">言語化ワーク</span>
+                    <span class="bg-primary/8 text-primary text-xs px-3 py-1.5 rounded-full font-display font-bold">アクションプラン策定</span>
+                    <span class="bg-slate-100 text-slate-600 text-xs px-3 py-1.5 rounded-full font-display font-bold">経営者・幹部向け</span>
+                </div>
+                <div class="mt-4"><span class="inline-flex items-center gap-1.5 text-xs text-primary bg-primary/5 border border-primary/15 px-3 py-1.5 rounded-full"><span class="material-symbols-outlined text-xs">neurology</span> 自己決定理論 × 集合的効力感</span></div>
+            </div>
+        </div>
+
+        <!-- 組織力強化研修 -->
+        <div id="team" class="grid md:grid-cols-2 gap-16 items-center mb-28">
+            <div class="order-2 md:order-1 slide-left">
+                <span class="section-label mb-4 block">Program 02</span>
+                <h3 class="text-3xl md:text-4xl font-bold font-display text-slate-900 tracking-tighter mb-2">組織力強化・チームビルディング研修</h3>
+                <p class="text-primary font-bold font-display text-sm tracking-widest uppercase mb-6">Team Building</p>
+                <div class="bg-primary/5 border border-primary/15 rounded-xl p-5 mb-6">
+                    <p class="font-bold text-slate-800 text-sm font-display mb-2">こんな課題をお持ちの方へ</p>
+                    <ul class="space-y-1.5 text-slate-600 text-sm">
+                        <li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-base flex-shrink-0 mt-0.5">check_circle</span>チーム間のコミュニケーションが少ない</li>
+                        <li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-base flex-shrink-0 mt-0.5">check_circle</span>社員のモチベーションが低下している</li>
+                        <li class="flex items-start gap-2"><span class="material-symbols-outlined text-primary text-base flex-shrink-0 mt-0.5">check_circle</span>リーダーシップを発揮できる人材を育てたい</li>
+                    </ul>
+                </div>
+                <p class="text-slate-600 leading-loose mb-6 text-sm">
+                    ワークショップ形式で、チームワーク・リーダーシップ・コミュニケーションを実践的に強化。社員のエンゲージメントを向上させ、自律的に動ける組織を作ります。
+                </p>
+                <div class="flex flex-wrap gap-3">
+                    <span class="bg-primary/8 text-primary text-xs px-3 py-1.5 rounded-full font-display font-bold">ワークショップ形式</span>
+                    <span class="bg-primary/8 text-primary text-xs px-3 py-1.5 rounded-full font-display font-bold">実践型プログラム</span>
+                    <span class="bg-slate-100 text-slate-600 text-xs px-3 py-1.5 rounded-full font-display font-bold">全社員・チーム単位向け</span>
+                </div>
+                <div class="mt-4"><span class="inline-flex items-center gap-1.5 text-xs text-primary bg-primary/5 border border-primary/15 px-3 py-1.5 rounded-full"><span class="material-symbols-outlined text-xs">neurology</span> オキシトシン効果 × 集合的フロー</span></div>
+            </div>
+            <div class="order-1 md:order-2 relative slide-right">
+                <div class="relative aspect-video rounded-2xl overflow-hidden shadow-2xl shadow-slate-200">
+                    <img src="images/training_team.jpg" alt="チームビルディング研修" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/30 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6">
+                        <span class="text-white/50 text-xs font-bold font-display tracking-[0.3em] uppercase mb-2 block">Program 02</span>
+                        <h3 class="text-2xl font-bold font-display text-white tracking-tighter leading-tight mb-1">組織力強化・チームビルディング研修</h3>
+                        <p class="text-white/60 text-xs font-display tracking-wider">Team Building</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- エグゼクティブコーチング -->
+        <div id="coaching" class="grid md:grid-cols-2 gap-16 items-center">
+            <div class="relative slide-left">
+                <div class="relative aspect-video rounded-2xl overflow-hidden shadow-2xl shadow-accent/10">
+                    <img src="images/training_coaching.jpg" alt="エグゼクティブコーチング" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/30 to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-6">
+                        <span class="text-white/50 text-xs font-bold font-display tracking-[0.3em] uppercase mb-2 block">Program 03</span>
+                        <h3 class="text-2xl font-bold font-display text-white tracking-tighter leading-tight mb-1">エグゼクティブコーチング</h3>
+                        <p class="text-white/60 text-xs font-display tracking-wider">1on1 Coaching</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-right">
+                <span class="section-label mb-4 block">Program 03</span>
+                <h3 class="text-3xl md:text-4xl font-bold font-display text-slate-900 tracking-tighter mb-2">エグゼクティブコーチング</h3>
+                <p class="text-primary font-bold font-display text-sm tracking-widest uppercase mb-6">1on1 Coaching</p>
+                <div class="bg-accent/8 border border-accent/20 rounded-xl p-5 mb-6">
+                    <p class="font-bold text-accent text-sm font-display mb-2">こんな課題をお持ちの方へ</p>
+                    <ul class="space-y-1.5 text-slate-600 text-sm">
+                        <li class="flex items-start gap-2"><span class="material-symbols-outlined text-accent text-base flex-shrink-0 mt-0.5">check_circle</span>意思決定の質をさらに高めたい</li>
+                        <li class="flex items-start gap-2"><span class="material-symbols-outlined text-accent text-base flex-shrink-0 mt-0.5">check_circle</span>次世代リーダーを育成したい</li>
+                        <li class="flex items-start gap-2"><span class="material-symbols-outlined text-accent text-base flex-shrink-0 mt-0.5">check_circle</span>自分の強みと課題を客観的に把握したい</li>
+                    </ul>
+                </div>
+                <p class="text-slate-600 leading-loose mb-6 text-sm">
+                    プロコーチによる完全個別の1on1セッション。自己認識を深め、強みを活かしながら次のステージへの成長を継続的にサポートします。
+                </p>
+                <div class="flex flex-wrap gap-3">
+                    <span class="bg-accent/10 text-accent text-xs px-3 py-1.5 rounded-full font-display font-bold">完全個別対応</span>
+                    <span class="bg-accent/10 text-accent text-xs px-3 py-1.5 rounded-full font-display font-bold">継続セッション</span>
+                    <span class="bg-accent/10 text-accent text-xs px-3 py-1.5 rounded-full font-display font-bold">目標設定と振り返り</span>
+                    <span class="bg-slate-100 text-slate-600 text-xs px-3 py-1.5 rounded-full font-display font-bold">経営者・次世代リーダー</span>
+                </div>
+                <div class="mt-4"><span class="inline-flex items-center gap-1.5 text-xs text-accent bg-accent/5 border border-accent/20 px-3 py-1.5 rounded-full"><span class="material-symbols-outlined text-xs">neurology</span> 前頭前野活性化 × 内発的動機づけ</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- FLOW -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="py-28 bg-slate-50 relative z-10">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-20 animate-on-scroll">
+            <span class="section-label mb-4 block">Our Process</span>
+            <h2 class="text-4xl md:text-5xl font-bold font-display text-slate-900 tracking-tighter">研修の流れ</h2>
+            <p class="text-slate-500 mt-4 text-sm">ヒアリングからフォローアップまで、一貫してサポートします。</p>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+            <!-- Step 1 -->
+            <div class="relative text-center animate-on-scroll">
+                <div class="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-primary/25">
+                    <span class="material-symbols-outlined text-white text-2xl">hearing</span>
+                </div>
+                <div class="hidden md:block absolute top-8 left-[calc(50%+2rem)] w-[calc(100%-4rem)] h-px bg-gradient-to-r from-primary to-slate-200"></div>
+                <p class="text-primary font-bold font-display text-xs tracking-widest mb-2">STEP 01</p>
+                <h3 class="text-base font-bold font-display text-slate-900 mb-3">ヒアリング</h3>
+                <p class="text-slate-500 text-xs leading-relaxed">組織の課題・目標・現状をヒアリング。最適なプログラムをご提案します。</p>
+            </div>
+            <!-- Step 2 -->
+            <div class="relative text-center animate-on-scroll">
+                <div class="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-primary/25">
+                    <span class="material-symbols-outlined text-white text-2xl">design_services</span>
+                </div>
+                <div class="hidden md:block absolute top-8 left-[calc(50%+2rem)] w-[calc(100%-4rem)] h-px bg-gradient-to-r from-primary to-slate-200"></div>
+                <p class="text-primary font-bold font-display text-xs tracking-widest mb-2">STEP 02</p>
+                <h3 class="text-base font-bold font-display text-slate-900 mb-3">プログラム設計</h3>
+                <p class="text-slate-500 text-xs leading-relaxed">課題に合わせてカスタマイズ。内容・スケジュール・ゴールを設定します。</p>
+            </div>
+            <!-- Step 3 -->
+            <div class="relative text-center animate-on-scroll">
+                <div class="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-primary/25">
+                    <span class="material-symbols-outlined text-white text-2xl">school</span>
+                </div>
+                <div class="hidden md:block absolute top-8 left-[calc(50%+2rem)] w-[calc(100%-4rem)] h-px bg-gradient-to-r from-primary to-accent/60"></div>
+                <p class="text-primary font-bold font-display text-xs tracking-widest mb-2">STEP 03</p>
+                <h3 class="text-base font-bold font-display text-slate-900 mb-3">研修実施</h3>
+                <p class="text-slate-500 text-xs leading-relaxed">セッション・ワークショップを実施。参加者の主体的な気づきを引き出します。</p>
+            </div>
+            <!-- Step 4 -->
+            <div class="text-center animate-on-scroll">
+                <div class="w-16 h-16 bg-accent rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg shadow-accent/25">
+                    <span class="material-symbols-outlined text-white text-2xl">trending_up</span>
+                </div>
+                <p class="text-accent font-bold font-display text-xs tracking-widest mb-2">STEP 04</p>
+                <h3 class="text-base font-bold font-display text-slate-900 mb-3">フォローアップ</h3>
+                <p class="text-slate-500 text-xs leading-relaxed">研修後の行動変容をサポート。振り返りと継続支援で定着を促進します。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 助成金バナー -->
+<section class="py-12 bg-white relative z-10">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="bg-primary/5 border border-primary/15 rounded-2xl p-8 flex flex-col md:flex-row items-start md:items-center gap-4 animate-on-scroll">
+            <span class="material-symbols-outlined text-primary text-3xl flex-shrink-0">info</span>
+            <div>
+                <p class="text-slate-800 font-bold text-sm mb-1">これらのプログラムは人材開発支援助成金の対象となる可能性があります。</p>
+                <p class="text-slate-500 text-sm">当社では申請サポートも承っております。詳しくはお問い合わせください。</p>
+            </div>
+            <a href="contact.html" class="flex-shrink-0 inline-flex items-center gap-1 text-primary text-xs font-bold font-display tracking-widest uppercase">
+                お問い合わせ <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- CTA -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="py-28 bg-primary text-white relative z-10 overflow-hidden">
+    <div class="absolute top-0 right-0 w-96 h-96 bg-accent/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="relative z-10 max-w-4xl mx-auto px-6 text-center animate-on-scroll">
+        <span class="text-white/50 text-xs font-bold font-display tracking-[0.35em] uppercase mb-6 block">はじめの一歩</span>
+        <h2 class="text-3xl md:text-5xl font-bold font-display tracking-tighter mb-6">
+            「共に」——<br>まずは、お話しましょう。
+        </h2>
+        <p class="text-white/70 text-base leading-relaxed mb-10 max-w-xl mx-auto">
+            フィロソフィー「共に」の通り、私たちはクライアントの課題をともに考え、ともに解決します。<br class="hidden md:block">
+            組織の現状をヒアリングした上で、最適なプログラムをご提案します。初回のご相談は無料です。
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="contact.html" class="inline-flex items-center gap-2 bg-white text-primary hover:bg-white/90 px-10 py-5 rounded-xl font-bold font-display text-sm tracking-widest uppercase transition-all group shadow-xl">
+                お問い合わせフォーム <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </a>
+            <a href="services.html#training" class="inline-flex items-center gap-2 border-2 border-white/30 hover:border-white text-white px-10 py-5 rounded-xl font-bold font-display text-sm tracking-widest uppercase transition-all">
+                サービス詳細へ
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-slate-900 text-white py-16 relative z-10">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid md:grid-cols-4 gap-10 mb-12">
+            <div class="md:col-span-2">
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-8 h-8 bg-primary rounded-sm flex items-center justify-center">
+                        <span class="material-symbols-outlined text-white text-xl">waves</span>
+                    </div>
+                    <span class="text-lg font-bold tracking-tighter uppercase font-display">Water Fall <span class="text-primary">Inc.</span></span>
+                </div>
+                <p class="text-white/50 text-sm leading-loose mb-6 max-w-sm">
+                    イベントの企画・演出・運営をトータルプロデュース。<br>
+                    組織の「在り方」を言語化する教育＆研修事業とともに、<br>
+                    感動体験と人材育成の両輪で社会に貢献します。
+                </p>
+                <div class="space-y-2">
+                    <p class="text-white/40 text-xs font-display">〒104-0061 東京都中央区銀座1丁目</p>
+                    <p class="text-white/40 text-xs font-display">info@water-fall.jp</p>
+                </div>
+            </div>
+            <div>
+                <p class="text-white/30 text-xs font-display tracking-widest uppercase mb-6">Navigation</p>
+                <ul class="space-y-3">
+                    <li><a href="index.html" class="text-white/60 hover:text-white text-sm transition-colors font-display">Home</a></li>
+                    <li><a href="services.html" class="text-white/60 hover:text-white text-sm transition-colors font-display">Services</a></li>
+                    <li><a href="method.html" class="text-white/60 hover:text-white text-sm transition-colors font-display">Method</a></li>
+                    <li><a href="programs.html" class="text-white text-sm font-display">Programs</a></li>
+                    <li><a href="company.html" class="text-white/60 hover:text-white text-sm transition-colors font-display">Company</a></li>
+                    <li><a href="contact.html" class="text-white/60 hover:text-white text-sm transition-colors font-display">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p class="text-white/30 text-xs font-display">© 2026 WATER FALL Inc. All Rights Reserved.</p>
+            <p class="text-white/20 text-xs font-display">JACE（日本イベント産業振興協会）会員</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+}, { threshold: 0.1 });
+document.querySelectorAll('.animate-on-scroll, .slide-left, .slide-right').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

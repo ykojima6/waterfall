@@ -6,7 +6,7 @@
     <title>会社概要 | WATER FALL Inc. — イベント企画・制作・運営</title>
     <meta name="description" content="WATER FALL Inc.（ウォーターフォール株式会社）の会社概要。代表挨拶・基本情報・沿革・事業内容。イベント企画・プロジェクションマッピング・文化事業のトータルプロデュース会社。">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
     <script id="tailwind-config">
@@ -14,16 +14,16 @@
             theme: {
                 extend: {
                     colors: { "primary": "#2547f4", "accent": "#ff6b00", "bg-light": "#F5F7FA" },
-                    fontFamily: { "display": ["Space Grotesk", "sans-serif"], "body": ["Noto Sans JP", "sans-serif"] },
+                    fontFamily: { "display": ["Inter", "sans-serif"], "body": ["Noto Sans JP", "sans-serif"] },
                 }
             }
         }
     </script>
     <style>
         body { font-family: 'Noto Sans JP', sans-serif; background: #FFFFFF; color: #1A202C; margin: 0; overflow-x: hidden; }
-        h1, h2, h3, h4, .font-display { font-family: 'Space Grotesk', sans-serif; }
+        h1, h2, h3, h4, .font-display { font-family: 'Inter', sans-serif; }
         .glass-panel { background: rgba(255,255,255,0.9); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(0,0,0,0.06); box-shadow: 0 4px 24px rgba(0,0,0,0.04); }
-        .section-label { font-family: 'Space Grotesk', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.35em; text-transform: uppercase; color: #2547f4; }
+        .section-label { font-family: 'Inter', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.35em; text-transform: uppercase; color: #2547f4; }
         #mobile-menu { display: none; }
         #mobile-menu.open { display: flex; }
         html { scroll-behavior: smooth; }
@@ -52,6 +52,11 @@
         .timeline-item:last-child { padding-bottom: 0; }
 
         .president-quote { border-left: 3px solid #2547f4; padding-left: 1.5rem; margin: 2rem 0; color: #334155; font-size: 1rem; line-height: 2; }
+        .animate-on-scroll { opacity: 0; transform: translateY(24px); transition: all 0.7s ease; }
+        .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+        .slide-left { opacity: 0; transform: translateX(-40px); transition: all 0.7s ease; }
+        .slide-right { opacity: 0; transform: translateX(40px); transition: all 0.7s ease; }
+        .slide-left.visible, .slide-right.visible { opacity: 1; transform: translateX(0); }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -93,6 +98,8 @@
         <div class="hidden md:flex items-center gap-8 text-xs font-bold tracking-[0.2em] uppercase font-display">
             <a href="index.html" class="text-slate-500 hover:text-primary transition-colors">Home</a>
             <a href="services.html" class="text-slate-500 hover:text-primary transition-colors">Services</a>
+            <a href="method.html" class="text-slate-500 hover:text-primary transition-colors">Method</a>
+            <a href="programs.html" class="text-slate-500 hover:text-primary transition-colors">Programs</a>
             <a href="company.html" class="text-primary border-b border-primary pb-0.5">Company</a>
         </div>
         <a href="contact.html" class="hidden md:flex bg-primary hover:bg-primary/85 text-white px-5 py-2.5 rounded-lg font-bold font-display text-xs tracking-widest uppercase transition-all items-center gap-2 group">
@@ -105,6 +112,8 @@
     <div id="mobile-menu" class="flex-col items-center gap-6 py-8 border-t border-black/5 bg-white/97">
         <a href="index.html" class="text-slate-600 text-xs font-bold tracking-widest uppercase font-display">Home</a>
         <a href="services.html" class="text-slate-600 text-xs font-bold tracking-widest uppercase font-display">Services</a>
+        <a href="method.html" class="text-slate-600 text-xs font-bold tracking-widest uppercase font-display hover:text-primary">Method</a>
+        <a href="programs.html" class="text-slate-600 text-xs font-bold tracking-widest uppercase font-display">Programs</a>
         <a href="company.html" class="text-primary text-xs font-bold tracking-widest uppercase font-display">Company</a>
         <a href="contact.html" class="bg-primary text-white px-8 py-3 rounded-lg font-bold font-display text-xs tracking-widest">Contact</a>
     </div>
@@ -122,8 +131,9 @@
         <span class="section-label mb-5 block">About Us</span>
         <h1 class="text-5xl md:text-7xl font-bold font-display text-slate-900 tracking-tighter mb-8 leading-tight">会社概要</h1>
         <p class="text-slate-500 text-base md:text-lg leading-relaxed max-w-2xl">
-            WATER FALL Inc. は、イベント企画・空間演出・プロジェクションマッピングを一貫してプロデュースする<br class="hidden md:block">
-            東京・銀座のイベントプロデュース会社です。
+            WATER FALL Inc. は、感動体験を設計するイベントプロデュース事業と、<br class="hidden md:block">
+            組織の「在り方」を言語化する教育＆研修事業の二軸で展開する、<br class="hidden md:block">
+            東京・銀座発の事業会社です。
         </p>
     </div>
 </header>
@@ -164,9 +174,9 @@
 <!-- ═══════════════════════════════════════════════════════════ -->
 <section class="py-28 bg-slate-50">
     <div class="max-w-5xl mx-auto px-6">
-        <span class="section-label mb-5 block">Company Profile</span>
-        <h2 class="text-3xl md:text-4xl font-bold font-display text-slate-900 tracking-tighter mb-16">基本情報</h2>
-        <div class="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm">
+        <span class="section-label mb-5 block animate-on-scroll">Company Profile</span>
+        <h2 class="text-3xl md:text-4xl font-bold font-display text-slate-900 tracking-tighter mb-16 animate-on-scroll">基本情報</h2>
+        <div class="bg-white rounded-2xl border border-slate-100 overflow-hidden shadow-sm animate-on-scroll">
             <div class="overflow-x-auto">
                 <table class="profile-table">
                     <tbody>
@@ -188,11 +198,7 @@
                         </tr>
                         <tr>
                             <th>所在地</th>
-                            <td>神奈川県横浜市南区東蒔田町7番地4</td>
-                        </tr>
-                        <tr>
-                            <th>東京支店</th>
-                            <td>〒104-0061<br>東京都中央区銀座5-10-10 銀座ビル1階</td>
+                            <td>〒104-0061<br>東京都中央区銀座1丁目<br><span class="text-slate-400 text-xs">※詳細住所はお問い合わせください</span></td>
                         </tr>
                         <tr>
                             <th>メール</th>
@@ -201,12 +207,17 @@
                         <tr>
                             <th>事業内容</th>
                             <td>
+                                <span class="font-bold text-slate-700 text-xs uppercase tracking-wider block mb-2">— イベントプロデュース事業 —</span>
                                 イベント企画・制作・運営全般<br>
                                 空間演出（照明・音響・映像設計）<br>
                                 プロジェクションマッピング制作<br>
                                 企業式典・社員総会・製品発表会の運営<br>
                                 文化事業・地域振興イベントの企画制作<br>
-                                配信・中継技術サービス
+                                配信・中継技術サービス<br>
+                                <span class="font-bold text-slate-700 text-xs uppercase tracking-wider block mt-4 mb-2">— 教育＆研修事業 —</span>
+                                MVP研修（ミッション・ビジョン・フィロソフィー策定）<br>
+                                組織力強化・チームビルディング研修<br>
+                                エグゼクティブコーチング・1on1支援
                             </td>
                         </tr>
                         <tr>
@@ -233,52 +244,97 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
-<!-- MISSION / VISION -->
+<!-- MVP -->
 <!-- ═══════════════════════════════════════════════════════════ -->
 <section class="py-28 bg-white">
     <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-20">
-            <span class="section-label mb-4 block">Mission & Vision</span>
-            <h2 class="text-3xl md:text-4xl font-bold font-display text-slate-900 tracking-tighter">私たちのミッション</h2>
+        <div class="text-center mb-16 animate-on-scroll">
+            <span class="section-label mb-4 block">Mission · Vision · Philosophy</span>
+            <h2 class="text-3xl md:text-4xl font-bold font-display text-slate-900 tracking-tighter">WATER FALL のMVP</h2>
+            <p class="text-slate-500 mt-4 text-sm max-w-xl mx-auto leading-relaxed">自社のMVPを言語化し、日々の事業で体現する。<br class="hidden md:block">それが、私たちの活動のすべての根拠です。</p>
         </div>
         <div class="grid md:grid-cols-3 gap-6">
-            <!-- MISSION -->
-            <div class="group bg-white rounded-2xl border border-slate-100 overflow-hidden hover:border-primary/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-200/60">
-                <div class="aspect-video overflow-hidden relative">
-                    <img src="images/company_mission_v2.jpg" alt="Mission" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent"></div>
-                </div>
-                <div class="p-8 text-center">
-                    <span class="material-symbols-outlined text-primary text-3xl mb-4 block">target</span>
-                    <p class="text-xs font-display tracking-widest uppercase text-slate-400 mb-3">Mission</p>
-                    <h3 class="text-xl font-bold font-display text-slate-900 mb-4 tracking-tight">感動を、設計する。</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">イベントが終わった翌日、参加者が誰かに話したくなる体験をつくること。それを私たちの使命とします。</p>
+            <!-- Mission -->
+            <div class="relative rounded-2xl overflow-hidden group animate-on-scroll" style="min-height:420px;">
+                <img src="images/mvp_mission_earth_golden.jpg" alt="Mission" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/50 to-slate-900/20"></div>
+                <div class="relative z-10 p-8 flex flex-col justify-end h-full text-center" style="min-height:420px;">
+                    <p class="text-white/60 text-xs font-bold font-display tracking-[0.35em] uppercase mb-4">Mission</p>
+                    <p class="text-3xl md:text-4xl font-bold font-display text-white tracking-tighter leading-tight mb-4">地球をハグする</p>
+                    <p class="text-white/70 text-sm leading-relaxed">一つひとつの感動体験が、<br>人と地球をやさしく繋ぐ。</p>
                 </div>
             </div>
-            <!-- VISION -->
-            <div class="group bg-white rounded-2xl border-2 border-primary/20 overflow-hidden hover:border-primary/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10">
-                <div class="aspect-video overflow-hidden relative">
-                    <img src="images/company_vision.jpg" alt="Vision" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent"></div>
-                </div>
-                <div class="p-8 text-center bg-primary/4">
-                    <span class="material-symbols-outlined text-primary text-3xl mb-4 block">visibility</span>
-                    <p class="text-xs font-display tracking-widest uppercase text-primary mb-3">Vision</p>
-                    <h3 class="text-xl font-bold font-display text-slate-900 mb-4 tracking-tight">文化と技術で、<br>日本を動かす。</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">伝統文化とデジタル技術の融合を通じて、日本の文化的価値を世界に発信し、地域社会の活性化に貢献します。</p>
+            <!-- Vision -->
+            <div class="relative rounded-2xl overflow-hidden group animate-on-scroll" style="min-height:420px;">
+                <img src="images/mvp_vision_world_network_japan.jpg" alt="Vision" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="absolute inset-0 bg-gradient-to-t from-primary/95 via-primary/60 to-primary/20"></div>
+                <div class="relative z-10 p-8 flex flex-col justify-end h-full text-center" style="min-height:420px;">
+                    <p class="text-white/60 text-xs font-bold font-display tracking-[0.35em] uppercase mb-4">Vision</p>
+                    <p class="text-3xl md:text-4xl font-bold font-display text-white tracking-tighter leading-tight mb-4">2,400万人を<br>繋ぐ</p>
+                    <p class="text-white/70 text-sm leading-relaxed">イベントと教育の両輪で、<br>その数字に向かい続ける。</p>
                 </div>
             </div>
-            <!-- VALUES -->
-            <div class="group bg-white rounded-2xl border border-slate-100 overflow-hidden hover:border-primary/20 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-200/60">
-                <div class="aspect-video overflow-hidden relative">
-                    <img src="images/service_bg_01.jpg" alt="Values" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent"></div>
+            <!-- Philosophy -->
+            <div class="relative rounded-2xl overflow-hidden group animate-on-scroll" style="min-height:420px;">
+                <img src="images/mvp_philosophy_ginza_together.jpg" alt="Philosophy" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/50 to-slate-900/20"></div>
+                <div class="relative z-10 p-8 flex flex-col justify-end h-full text-center" style="min-height:420px;">
+                    <p class="text-white/60 text-xs font-bold font-display tracking-[0.35em] uppercase mb-4">Philosophy</p>
+                    <p class="text-3xl md:text-4xl font-bold font-display text-white tracking-tighter leading-tight mb-4">共に</p>
+                    <p class="text-white/70 text-sm leading-relaxed">クライアントとともに、<br>参加者とともに、社会とともに。</p>
                 </div>
-                <div class="p-8 text-center">
-                    <span class="material-symbols-outlined text-primary text-3xl mb-4 block">handshake</span>
-                    <p class="text-xs font-display tracking-widest uppercase text-slate-400 mb-3">Values</p>
-                    <h3 class="text-xl font-bold font-display text-slate-900 mb-4 tracking-tight">真剣に、誠実に、<br>クリエイティブに。</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">クライアントの目的を深く理解し、最高のチームワークで期待を超える成果を届けます。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- TWO BUSINESSES -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section class="py-28 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16 animate-on-scroll">
+            <span class="section-label mb-4 block">Our Businesses</span>
+            <h2 class="text-3xl md:text-4xl font-bold font-display text-slate-900 tracking-tighter">二つの事業で、ひとつのミッションを。</h2>
+            <p class="text-slate-500 mt-4 text-sm max-w-xl mx-auto">感動体験の設計と、組織の在り方の言語化。二つの事業はひとつのミッションのために存在します。</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Event Business -->
+            <div class="group rounded-2xl overflow-hidden bg-white border border-slate-100 hover:border-slate-200 hover:shadow-xl hover:shadow-slate-200/60 transition-all duration-300">
+                <div class="relative overflow-hidden" style="height:280px;">
+                    <img src="images/service_bg_03.jpg" alt="イベントプロデュース事業" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <span class="absolute top-5 left-5 text-white/80 text-xs font-bold font-display tracking-[0.35em] uppercase bg-black/35 backdrop-blur-sm px-3 py-1.5 rounded-full">Business 01</span>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-2xl font-bold font-display text-slate-900 tracking-tighter mb-3">イベントプロデュース事業</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-5">企画・演出・運営をワンストップで。デジタルアートと伝統文化の融合で、唯一無二の感動体験を設計します。</p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="bg-slate-100 text-slate-600 text-xs px-3 py-1 rounded-full font-display">空間演出</span>
+                        <span class="bg-slate-100 text-slate-600 text-xs px-3 py-1 rounded-full font-display">プロジェクションマッピング</span>
+                        <span class="bg-slate-100 text-slate-600 text-xs px-3 py-1 rounded-full font-display">映像制作</span>
+                    </div>
+                    <a href="services.html" class="inline-flex items-center gap-2 text-primary hover:text-primary/70 text-xs font-bold font-display tracking-widest uppercase transition-colors group/link">
+                        サービス詳細 <span class="material-symbols-outlined text-sm group-hover/link:translate-x-1 transition-transform">arrow_forward</span>
+                    </a>
+                </div>
+            </div>
+            <!-- Training Business -->
+            <div class="group rounded-2xl overflow-hidden bg-white border border-primary/20 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300">
+                <div class="relative overflow-hidden" style="height:280px;">
+                    <img src="images/training_hero.jpg" alt="教育＆研修事業" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <span class="absolute top-5 left-5 text-white/80 text-xs font-bold font-display tracking-[0.35em] uppercase bg-primary/60 backdrop-blur-sm px-3 py-1.5 rounded-full">Business 02</span>
+                </div>
+                <div class="p-8 bg-primary/[0.02]">
+                    <h3 class="text-2xl font-bold font-display text-slate-900 tracking-tighter mb-3">教育＆研修事業</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-5">組織の「在り方」を言語化する。MVP研修・組織力強化・エグゼクティブコーチングで、人と組織の成長を支援します。</p>
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <span class="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full font-display">MVP研修</span>
+                        <span class="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full font-display">組織力強化研修</span>
+                        <span class="bg-primary/10 text-primary text-xs px-3 py-1 rounded-full font-display">コーチング</span>
+                    </div>
+                    <a href="programs.html" class="inline-flex items-center gap-2 text-primary hover:text-primary/70 text-xs font-bold font-display tracking-widest uppercase transition-colors group/link">
+                        プログラム詳細 <span class="material-symbols-outlined text-sm group-hover/link:translate-x-1 transition-transform">arrow_forward</span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -290,29 +346,29 @@
 <!-- ═══════════════════════════════════════════════════════════ -->
 <section class="py-28 bg-slate-50">
     <div class="max-w-5xl mx-auto px-6">
-        <span class="section-label mb-5 block">History</span>
-        <h2 class="text-3xl md:text-4xl font-bold font-display text-slate-900 tracking-tighter mb-16">沿革</h2>
+        <span class="section-label mb-5 block animate-on-scroll">History</span>
+        <h2 class="text-3xl md:text-4xl font-bold font-display text-slate-900 tracking-tighter mb-16 animate-on-scroll">沿革</h2>
         <div class="grid md:grid-cols-2 gap-16 items-start">
             <div>
-                <div class="timeline-item">
+                <div class="timeline-item animate-on-scroll">
                     <div class="flex items-center gap-4 mb-1">
                         <span class="font-bold font-display text-primary text-sm">2021年 7月</span>
                     </div>
                     <p class="text-slate-600 text-sm leading-relaxed">WATER FALL Inc.（ウォーターフォール株式会社）設立。令和3年7月21日、東京都中央区銀座にて事業開始。</p>
                 </div>
-                <div class="timeline-item">
+                <div class="timeline-item animate-on-scroll">
                     <div class="flex items-center gap-4 mb-1">
                         <span class="font-bold font-display text-primary text-sm">2022年 1月</span>
                     </div>
                     <p class="text-slate-600 text-sm leading-relaxed">初の企業式典プロデュース（東京都内・参加者200名）。空間演出・映像制作・当日運営を一括受注。</p>
                 </div>
-                <div class="timeline-item">
+                <div class="timeline-item animate-on-scroll">
                     <div class="flex items-center gap-4 mb-1">
                         <span class="font-bold font-display text-primary text-sm">2022年 6月</span>
                     </div>
                     <p class="text-slate-600 text-sm leading-relaxed">プロジェクションマッピング事業を本格開始。京都市内の文化財を対象にした試験プロジェクトを実施。</p>
                 </div>
-                <div class="timeline-item">
+                <div class="timeline-item animate-on-scroll">
                     <div class="flex items-center gap-4 mb-1">
                         <span class="font-bold font-display text-primary text-sm">2022年 11月</span>
                     </div>
@@ -320,29 +376,36 @@
                 </div>
             </div>
             <div>
-                <div class="timeline-item">
+                <div class="timeline-item animate-on-scroll">
                     <div class="flex items-center gap-4 mb-1">
                         <span class="font-bold font-display text-primary text-sm">2023年 4月</span>
                     </div>
                     <p class="text-slate-600 text-sm leading-relaxed">一般社団法人 日本イベント産業振興協会（JACE）に加盟。</p>
                 </div>
-                <div class="timeline-item">
+                <div class="timeline-item animate-on-scroll">
                     <div class="flex items-center gap-4 mb-1">
                         <span class="font-bold font-display text-primary text-sm">2023年 10月</span>
                     </div>
                     <p class="text-slate-600 text-sm leading-relaxed">プロジェクションマッピングイベント第2回を奈良・金沢の2都市で開催。文化庁関連助成金の採択を受ける。</p>
                 </div>
-                <div class="timeline-item">
+                <div class="timeline-item animate-on-scroll">
                     <div class="flex items-center gap-4 mb-1">
                         <span class="font-bold font-display text-primary text-sm">2024年 2月</span>
                     </div>
                     <p class="text-slate-600 text-sm leading-relaxed">イベント賠償責任保険に加入。</p>
                 </div>
-                <div class="timeline-item">
+                <div class="timeline-item animate-on-scroll">
                     <div class="flex items-center gap-4 mb-1">
                         <span class="font-bold font-display text-primary text-sm">2025年 3月</span>
                     </div>
                     <p class="text-slate-600 text-sm leading-relaxed">プロジェクションマッピングイベント第3回を開催。延べ来場者5,000名を達成。全国15都市でのイベントプロデュース実績を確立。</p>
+                </div>
+                <div class="timeline-item animate-on-scroll">
+                    <div class="flex items-center gap-4 mb-1">
+                        <span class="font-bold font-display text-primary text-sm">2025年〜</span>
+                        <span class="bg-primary/10 text-primary text-xs font-bold font-display tracking-wider px-2 py-0.5 rounded-full">New</span>
+                    </div>
+                    <p class="text-slate-600 text-sm leading-relaxed">教育＆研修事業を本格始動。MVP（ミッション・ビジョン・フィロソフィー）の策定支援・組織力強化研修・エグゼクティブコーチングを展開。イベントプロデュースで培った「体験設計」の知見を、人材育成領域へ応用。</p>
                 </div>
             </div>
         </div>
@@ -356,8 +419,8 @@
     <div class="max-w-7xl mx-auto px-6">
         <div class="grid md:grid-cols-2 gap-16 items-center">
             <div>
-                <span class="section-label mb-5 block">Our Team</span>
-                <h2 class="text-3xl md:text-4xl font-bold font-display text-slate-900 tracking-tighter mb-8">
+                <span class="section-label mb-5 block animate-on-scroll">Our Team</span>
+                <h2 class="text-3xl md:text-4xl font-bold font-display text-slate-900 tracking-tighter mb-8 animate-on-scroll">
                     チームについて
                 </h2>
                 <p class="text-slate-600 leading-loose mb-6">
@@ -387,7 +450,7 @@
             </div>
             <div class="relative">
                 <div class="aspect-video rounded-2xl overflow-hidden shadow-2xl shadow-slate-200">
-                    <img src="images/company_tam.jpg" alt="WATER FALL チーム" class="w-full h-full object-cover">
+                    <img src="Images/company_tam.jpg" alt="WATER FALL チーム" class="w-full h-full object-cover">
                 </div>
             </div>
         </div>
@@ -397,7 +460,7 @@
 <!-- CTA -->
 <section class="py-20 bg-primary text-white relative z-10 overflow-hidden">
     <div class="absolute top-0 right-0 w-80 h-80 bg-accent/20 rounded-full blur-3xl"></div>
-    <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+    <div class="relative z-10 max-w-4xl mx-auto px-6 text-center animate-on-scroll">
         <h2 class="text-3xl md:text-5xl font-bold font-display tracking-tighter mb-6">お気軽にご相談ください。</h2>
         <p class="text-white/70 text-base leading-relaxed mb-10">初回ヒアリングは無料です。どんな段階からでもご相談に応じます。</p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
@@ -422,13 +485,14 @@
                     </div>
                     <span class="text-lg font-bold tracking-tighter uppercase font-display">Water Fall <span class="text-primary">Inc.</span></span>
                 </div>
-                <p class="text-white/50 text-sm leading-loose max-w-sm">イベントの企画・演出・運営をトータルプロデュース。デジタルアートと伝統文化の融合で、感動体験を設計します。</p>
+                <p class="text-white/50 text-sm leading-loose max-w-sm">イベントの企画・演出・運営をトータルプロデュース。<br>組織の「在り方」を言語化する教育＆研修事業とともに、<br>感動体験と人材育成の両輪で社会に貢献します。</p>
             </div>
             <div>
                 <p class="text-white/30 text-xs font-display tracking-widest uppercase mb-5">Navigation</p>
                 <ul class="space-y-3">
                     <li><a href="index.html" class="text-white/60 hover:text-white text-sm transition-colors font-display">Home</a></li>
                     <li><a href="services.html" class="text-white/60 hover:text-white text-sm transition-colors font-display">Services</a></li>
+                    <li><a href="method.html" class="text-white/60 hover:text-white text-sm transition-colors font-display">Method</a></li>
                     <li><a href="index.html#works" class="text-white/60 hover:text-white text-sm transition-colors font-display">Works</a></li>
                     <li><a href="company.html" class="text-white text-sm font-display">Company</a></li>
                     <li><a href="contact.html" class="text-white/60 hover:text-white text-sm transition-colors font-display">Contact</a></li>
@@ -437,15 +501,23 @@
             <div>
                 <p class="text-white/30 text-xs font-display tracking-widest uppercase mb-5">Contact</p>
                 <p class="text-white/50 text-sm">info@water-fall.jp</p>
-                <p class="text-white/40 text-xs mt-2">〒104-0061 東京都中央区銀座5-10-10 銀座ビル1階</p>
+                <p class="text-white/40 text-xs mt-2">〒104-0061 東京都中央区銀座1丁目</p>
             </div>
         </div>
         <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p class="text-white/30 text-xs font-display">© 2024 WATER FALL Inc. All Rights Reserved.</p>
+            <p class="text-white/30 text-xs font-display">© 2026 WATER FALL Inc. All Rights Reserved.</p>
             <p class="text-white/20 text-xs font-display">JACE（日本イベント産業振興協会）会員</p>
         </div>
     </div>
 </footer>
 
+<script>
+const animObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+}, { threshold: 0.1 });
+document.querySelectorAll('.animate-on-scroll, .slide-left, .slide-right').forEach(el => animObserver.observe(el));
+</script>
 </body>
 </html>
