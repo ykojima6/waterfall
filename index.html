@@ -3,13 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WATER FALL Inc. | イベント企画・制作・運営プロデュース</title>
-    <meta name="description" content="イベント企画から空間演出・映像制作・当日運営まで一貫してプロデュース。プロジェクションマッピング×伝統文化のWATER FALL Inc.（ウォーターフォール株式会社）">
+    <title>WATER FALL INC. | 感動を、科学で設計する。</title>
+    <meta name="description" content="WATER FALL INC.は脳科学×体験デザインで、イベント制作と組織変革研修を提供します。プロジェクションマッピング・コーチング・助成金サポート。">
+    <meta name="keywords" content="イベント制作, 組織変革, コーチング, 脳科学, プロジェクションマッピング, 人材開発, 助成金">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
-    <script id="tailwind-config">
+    <script>
         tailwind.config = {
             theme: {
                 extend: {
@@ -19,7 +19,7 @@
                         "bg-light": "#F5F7FA",
                     },
                     fontFamily: {
-                        "display": ["Space Grotesk", "sans-serif"],
+                        "display": ["Inter", "sans-serif"],
                         "body": ["Noto Sans JP", "sans-serif"],
                     },
                 }
@@ -34,7 +34,7 @@
             margin: 0;
             overflow-x: hidden;
         }
-        h1, h2, h3, h4, .font-display { font-family: 'Space Grotesk', sans-serif; }
+        h1, h2, h3, h4, .font-display { font-family: 'Inter', 'Noto Sans JP', sans-serif; }
 
         .glass-panel {
             background: rgba(255,255,255,0.9);
@@ -44,7 +44,7 @@
             box-shadow: 0 4px 24px rgba(0,0,0,0.04);
         }
         .section-label {
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Inter', sans-serif;
             font-size: 0.65rem;
             font-weight: 700;
             letter-spacing: 0.35em;
@@ -57,28 +57,14 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .service-card {
-            transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+        .gradient-text-blue {
+            background: linear-gradient(90deg, #2547f4, #6b8aff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .service-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 24px 48px rgba(37,71,244,0.12);
-        }
-        .works-card { transition: all 0.4s ease; }
-        .works-card .works-overlay { opacity: 0; transition: opacity 0.4s ease; }
-        .works-card:hover .works-overlay { opacity: 1; }
-        .works-card:hover img { transform: scale(1.08); }
-        .works-card img { transition: transform 0.5s ease; }
-
-        #waterfall-canvas {
-            position: fixed; top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0.55;
-            mix-blend-mode: multiply;
-        }
-        section, nav, header, footer { position: relative; z-index: 10; }
+        .service-card { transition: all 0.3s cubic-bezier(0.4,0,0.2,1); }
+        .service-card:hover { transform: translateY(-6px); box-shadow: 0 24px 48px rgba(37,71,244,0.12); }
 
         #mobile-menu { display: none; }
         #mobile-menu.open { display: flex; }
@@ -93,78 +79,51 @@
             to   { opacity: 1; transform: translateY(0); }
         }
         .fade-up { animation: fadeInUp 0.8s ease forwards; }
+        .fade-up-delay-1 { animation: fadeInUp 0.8s ease 0.2s forwards; opacity: 0; }
+        .fade-up-delay-2 { animation: fadeInUp 0.8s ease 0.4s forwards; opacity: 0; }
+        .fade-up-delay-3 { animation: fadeInUp 0.8s ease 0.6s forwards; opacity: 0; }
+        .fade-up-delay-4 { animation: fadeInUp 0.8s ease 0.8s forwards; opacity: 0; }
+        .fade-up-delay-5 { animation: fadeInUp 0.8s ease 1.0s forwards; opacity: 0; }
 
-        .step-connector {
-            position: absolute;
-            top: 28px;
-            left: 50%;
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, #2547f4 0%, #e2e8f0 100%);
-            z-index: 0;
+        .animate-on-scroll { opacity: 0; transform: translateY(24px); transition: all 0.7s ease; }
+        .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+        .slide-left { opacity: 0; transform: translateX(-40px); transition: all 0.7s ease; }
+        .slide-right { opacity: 0; transform: translateX(40px); transition: all 0.7s ease; }
+        .slide-left.visible, .slide-right.visible { opacity: 1; transform: translateX(0); }
+
+        .method-card { transition: all 0.35s cubic-bezier(0.4,0,0.2,1); }
+        .method-card:hover { transform: translateY(-4px); box-shadow: 0 24px 48px rgba(37,71,244,0.30); }
+
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+        .faq-item.open .faq-answer { max-height: 300px; }
+        .faq-item.open .faq-toggle { transform: rotate(45deg); }
+
+        .case-card { transition: all 0.3s ease; }
+        .case-card:hover { box-shadow: 0 16px 40px rgba(37,71,244,0.08); }
+
+        /* MVP Item Glow — each item lights up in sequence */
+        /* translate(-50%,-50%) must be included in every keyframe to preserve centering */
+        @keyframes mvpSpotlight {
+            0%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(0.85); }
+            15%, 30% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+            45%       { opacity: 0; transform: translate(-50%, -50%) scale(0.85); }
         }
-
-        .news-card { transition: all 0.3s ease; }
-        .news-card:hover { transform: translateY(-4px); box-shadow: 0 16px 32px rgba(0,0,0,0.08); }
+        .mvp-item { position: relative; }
+        .mvp-item .mvp-glow-bg {
+            position: absolute;
+            /* タイトル文字の中心あたりに合わせる（ラベル+タイトル上半部 ≈ 42%） */
+            top: 42%; left: 50%;
+            width: 340px; height: 340px;
+            border-radius: 50%; filter: blur(72px);
+            transform: translate(-50%, -50%) scale(0.85);
+            opacity: 0; pointer-events: none; z-index: 0;
+            animation: mvpSpotlight 6s ease-in-out infinite;
+        }
+        .mvp-item:nth-child(1) .mvp-glow-bg { animation-delay: 0s; }
+        .mvp-item:nth-child(2) .mvp-glow-bg { animation-delay: 2s; }
+        .mvp-item:nth-child(3) .mvp-glow-bg { animation-delay: 4s; }
+        .mvp-item > *:not(.mvp-glow-bg) { position: relative; z-index: 1; }
     </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const canvas = document.createElement('canvas');
-            canvas.id = 'waterfall-canvas';
-            document.body.prepend(canvas);
-            const ctx = canvas.getContext('2d');
-            let width, height, particles = [];
-            const count = 100, baseSpeed = 0.9;
-            let scrollSpeed = 0;
-            const resize = () => { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; init(); };
-            class Particle {
-                constructor() { this.reset(); }
-                reset() {
-                    this.x = Math.random() * width;
-                    this.y = Math.random() * height - height;
-                    this.len = Math.random() * 22 + 6;
-                    this.op = Math.random() * 0.2 + 0.03;
-                    this.sp = Math.random() * 0.6 + baseSpeed;
-                    this.w = Math.random() * 0.9 + 0.2;
-                    const h = Math.random() > 0.8 ? 200 : 228;
-                    this.col = `hsla(${h},80%,45%,`;
-                }
-                update() {
-                    this.y += this.sp + scrollSpeed;
-                    if (this.y > height) { this.y = -this.len - Math.random() * 60; this.x = Math.random() * width; this.reset(); }
-                }
-                draw() {
-                    ctx.beginPath();
-                    const g = ctx.createLinearGradient(this.x, this.y, this.x, this.y + this.len);
-                    g.addColorStop(0, this.col + '0)');
-                    g.addColorStop(1, this.col + this.op + ')');
-                    ctx.strokeStyle = g; ctx.lineWidth = this.w;
-                    ctx.moveTo(this.x, this.y); ctx.lineTo(this.x, this.y + this.len); ctx.stroke();
-                }
-            }
-            function init() { particles = []; for (let i = 0; i < count; i++) particles.push(new Particle()); }
-            function animate() {
-                ctx.clearRect(0, 0, width, height);
-                scrollSpeed *= 0.93;
-                if (Math.abs(scrollSpeed) < 0.05) scrollSpeed = 0;
-                particles.forEach(p => { p.update(); p.draw(); });
-                requestAnimationFrame(animate);
-            }
-            let lastY = window.scrollY;
-            window.addEventListener('scroll', () => {
-                const d = window.scrollY - lastY;
-                if (d > 0) scrollSpeed = Math.min(scrollSpeed + d * 0.022, 10);
-                lastY = window.scrollY;
-            });
-            window.addEventListener('resize', resize);
-            resize(); animate();
-
-            // Mobile menu
-            document.getElementById('menu-btn').addEventListener('click', () => {
-                document.getElementById('mobile-menu').classList.toggle('open');
-            });
-        });
-    </script>
 </head>
 <body>
 
@@ -182,8 +141,10 @@
             </span>
         </a>
         <div class="hidden md:flex items-center gap-8 text-xs font-bold tracking-[0.2em] uppercase font-display">
-            <a href="index.html" class="text-primary border-b border-primary pb-0.5">Home</a>
+            <a href="#home" class="text-primary border-b border-primary pb-0.5">Home</a>
             <a href="services.html" class="text-slate-500 hover:text-primary transition-colors">Services</a>
+            <a href="method.html" class="text-slate-500 hover:text-primary transition-colors">Method</a>
+            <a href="programs.html" class="text-slate-500 hover:text-primary transition-colors">Programs</a>
             <a href="company.html" class="text-slate-500 hover:text-primary transition-colors">Company</a>
         </div>
         <a href="contact.html" class="hidden md:flex bg-primary hover:bg-primary/85 text-white px-5 py-2.5 rounded-lg font-bold font-display text-xs tracking-widest uppercase transition-all items-center gap-2 group">
@@ -196,10 +157,11 @@
             <span class="w-3 h-0.5 bg-slate-800 block ml-auto"></span>
         </button>
     </div>
-    <!-- Mobile menu -->
     <div id="mobile-menu" class="flex-col items-center gap-6 py-8 border-t border-black/5 bg-white/97">
-        <a href="index.html" class="text-primary text-xs font-bold tracking-widest uppercase font-display">Home</a>
+        <a href="#home" class="text-primary text-xs font-bold tracking-widest uppercase font-display">Home</a>
         <a href="services.html" class="text-slate-600 text-xs font-bold tracking-widest uppercase font-display hover:text-primary">Services</a>
+        <a href="method.html" class="text-slate-600 text-xs font-bold tracking-widest uppercase font-display hover:text-primary">Method</a>
+        <a href="programs.html" class="text-slate-600 text-xs font-bold tracking-widest uppercase font-display hover:text-primary">Programs</a>
         <a href="company.html" class="text-slate-600 text-xs font-bold tracking-widest uppercase font-display hover:text-primary">Company</a>
         <a href="contact.html" class="bg-primary text-white px-8 py-3 rounded-lg font-bold font-display text-xs tracking-widest">Contact</a>
     </div>
@@ -209,34 +171,36 @@
 <!-- HERO -->
 <!-- ═══════════════════════════════════════════════════════════ -->
 <section id="home" class="relative min-h-screen flex flex-col justify-center overflow-hidden pt-20">
-    <!-- Full-screen background -->
     <div class="absolute inset-0 z-0">
         <img src="images/hero_event.jpg" alt="" class="w-full h-full object-cover object-center">
-        <div class="absolute inset-0 bg-gradient-to-r from-slate-900/80 via-slate-900/50 to-slate-900/20"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-slate-900/85 via-slate-900/55 to-slate-900/20"></div>
         <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
     </div>
-
     <div class="relative z-20 max-w-7xl mx-auto px-6 py-20 w-full">
-        <div class="max-w-2xl fade-up">
-            <span class="text-white/60 text-xs font-bold font-display tracking-[0.35em] uppercase mb-6 block">Total Event Production</span>
-            <h1 class="text-6xl md:text-8xl font-bold leading-[1.0] tracking-tighter text-white mb-6">
-                感動を、<br>設計する。
+        <div class="max-w-2xl">
+            <div class="fade-up-delay-1">
+                <span class="inline-block text-white/80 text-xs font-bold font-display tracking-[0.3em] uppercase border border-white/30 px-4 py-1.5 rounded-sm mb-6">
+                    Neuroscience × Experience Design
+                </span>
+            </div>
+            <h1 class="text-6xl md:text-8xl font-bold leading-[1.0] tracking-tighter text-white mb-6 fade-up-delay-2">
+                感動を、<br><span class="text-primary">設計する。</span>
             </h1>
-            <p class="text-3xl md:text-4xl font-light font-display text-white/60 tracking-tight mb-8">
-                We Design Moments.
+            <p class="text-xl md:text-2xl font-light text-white/70 mb-4 fade-up-delay-3">
+                感情が動いた瞬間、人は変わる。<br>それは、科学で再現できる。
             </p>
-            <p class="text-white/75 text-base md:text-lg leading-loose mb-10 max-w-lg">
-                イベントの企画・演出・運営を一貫してプロデュース。<br>
-                デジタルアートと伝統文化を融合させた、<br>唯一無二の体験を創造します。
+            <p class="text-white/55 text-base leading-loose mb-10 max-w-lg fade-up-delay-4">
+                私たちは脳科学・心理工学・コーチングを統合し、<br>
+                イベントと教育の両軸で、人と組織の行動変容を設計します。<br>
+                初回ヒアリングは無料です。
             </p>
-            <div class="flex flex-wrap gap-4">
+            <div class="flex flex-wrap gap-4 fade-up-delay-5">
                 <a href="contact.html" class="bg-primary hover:bg-primary/85 text-white px-8 py-4 rounded-lg font-bold font-display text-sm tracking-widest uppercase transition-all flex items-center gap-2 group shadow-lg shadow-primary/30">
-                    お問い合わせ
+                    感動体験を設計する
                     <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
                 </a>
-                <a href="#works" class="border-2 border-white/30 hover:border-white text-white px-8 py-4 rounded-lg font-bold font-display text-sm tracking-widest uppercase transition-all flex items-center gap-2">
-                    実績を見る
-                    <span class="material-symbols-outlined text-sm">south</span>
+                <a href="method.html" class="border-2 border-white/40 hover:border-white text-white px-8 py-4 rounded-lg font-bold font-display text-sm tracking-widest uppercase transition-all flex items-center gap-2">
+                    私たちのメソッドを見る
                 </a>
             </div>
         </div>
@@ -248,59 +212,178 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
-<!-- STAT BAR -->
+<!-- STATS -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<section class="bg-primary text-white py-14 relative z-10">
+<section id="stats" class="bg-primary text-white py-14 relative z-10">
     <div class="max-w-7xl mx-auto px-6">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-y-2 divide-white/10 md:divide-y-0 md:divide-x md:divide-white/15">
             <div class="py-4 md:py-0">
-                <p class="font-display font-bold text-5xl tracking-tighter">100<span class="text-accent text-3xl font-bold">+</span></p>
+                <p class="font-display font-bold text-5xl tracking-tighter"><span data-target="2021">0</span></p>
+                <p class="text-white/60 text-xs font-display tracking-[0.25em] uppercase mt-2">Year Founded</p>
+                <p class="text-white/50 text-xs mt-1">年創業</p>
+            </div>
+            <div class="py-4 md:py-0">
+                <p class="font-display font-bold text-5xl tracking-tighter"><span data-target="100">0</span><span class="text-accent text-3xl font-bold">+</span></p>
                 <p class="text-white/60 text-xs font-display tracking-[0.25em] uppercase mt-2">Events Produced</p>
-                <p class="text-white/50 text-xs mt-1">イベント制作実績</p>
+                <p class="text-white/50 text-xs mt-1">累計イベント数</p>
             </div>
             <div class="py-4 md:py-0">
-                <p class="font-display font-bold text-5xl tracking-tighter">30<span class="text-accent text-3xl font-bold">+</span></p>
-                <p class="text-white/60 text-xs font-display tracking-[0.25em] uppercase mt-2">Projection Works</p>
-                <p class="text-white/50 text-xs mt-1">プロジェクション実績</p>
+                <p class="font-display font-bold text-5xl tracking-tighter"><span data-target="15">0</span><span class="text-accent text-3xl font-bold">年</span></p>
+                <p class="text-white/60 text-xs font-display tracking-[0.25em] uppercase mt-2">Industry Experience</p>
+                <p class="text-white/50 text-xs mt-1">業界経験</p>
             </div>
             <div class="py-4 md:py-0">
-                <p class="font-display font-bold text-5xl tracking-tighter">15</p>
-                <p class="text-white/60 text-xs font-display tracking-[0.25em] uppercase mt-2">Cities Nationwide</p>
-                <p class="text-white/50 text-xs mt-1">全国展開都市数</p>
-            </div>
-            <div class="py-4 md:py-0">
-                <p class="font-display font-bold text-5xl tracking-tighter">98<span class="text-accent text-3xl font-bold">%</span></p>
+                <p class="font-display font-bold text-5xl tracking-tighter"><span data-target="98">0</span><span class="text-accent text-3xl font-bold">%</span></p>
                 <p class="text-white/60 text-xs font-display tracking-[0.25em] uppercase mt-2">Client Satisfaction</p>
-                <p class="text-white/50 text-xs mt-1">クライアント満足度</p>
+                <p class="text-white/50 text-xs mt-1">顧客満足度</p>
+            </div>
+        </div>
+        <div class="border-t border-white/15 mt-8 pt-6 text-center">
+            <p class="font-display font-bold text-4xl tracking-tighter"><span data-target="87">0</span><span class="text-accent text-2xl font-bold">%</span></p>
+            <p class="text-white/60 text-xs font-display tracking-[0.25em] uppercase mt-2">Behavioral Change Rate</p>
+            <p class="text-white/50 text-xs mt-1">研修後の行動変容率</p>
+            <p class="text-white/30 text-[10px] mt-1">※ 脳科学ベース研修プログラム 参加者アンケートより</p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- MVP -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="mvp" class="py-24 relative z-10 overflow-hidden" style="background: #030a1f;">
+    <div class="max-w-7xl mx-auto px-6 relative">
+        <div class="text-center mb-14 animate-on-scroll">
+            <span class="section-label mb-4 block" style="color: rgba(147,180,255,0.65);">Mission · Vision · Philosophy</span>
+            <h2 class="text-4xl md:text-5xl font-bold font-display text-white tracking-tighter">私たちのMVP</h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-0 animate-on-scroll">
+            <!-- Mission -->
+            <div class="mvp-item text-center py-12 md:py-16 px-6 md:px-10 overflow-hidden">
+                <div class="mvp-glow-bg" style="background: radial-gradient(circle, rgba(130,185,255,1) 0%, rgba(55,95,244,0.60) 30%, rgba(37,71,244,0.12) 60%, transparent 80%);"></div>
+                <p class="text-[10px] font-bold font-display tracking-[0.45em] uppercase mb-5" style="color: rgba(147,180,255,0.6);">Mission</p>
+                <p class="text-4xl md:text-5xl font-black font-display text-white tracking-tighter leading-[1.1] mb-2">地球を<br>ハグする</p>
+                <p class="text-sm font-display tracking-wide mb-6" style="color: rgba(147,180,255,0.5);">Hug the Earth</p>
+                <p class="text-sm leading-relaxed text-white">一つひとつの感動体験が、<br>人と地球をやさしく繋ぐ。</p>
+            </div>
+            <!-- Vision -->
+            <div class="mvp-item text-center py-12 md:py-16 px-6 md:px-10 overflow-hidden border-t md:border-t-0 md:border-l border-white/10">
+                <div class="mvp-glow-bg" style="background: radial-gradient(circle, rgba(170,210,255,1) 0%, rgba(90,135,255,0.65) 28%, rgba(37,71,244,0.15) 55%, transparent 80%);"></div>
+                <p class="text-[10px] font-bold font-display tracking-[0.45em] uppercase mb-5" style="color: rgba(147,180,255,0.6);">Vision</p>
+                <p class="text-3xl md:text-4xl font-black font-display text-white tracking-tighter leading-[1.1] mb-2">2,400万人を<br>繋ぐ</p>
+                <p class="text-sm font-display tracking-wide mb-6" style="color: rgba(147,180,255,0.5);">Connect 24 Million People</p>
+                <p class="text-sm leading-relaxed text-white">イベントと教育の両輪で、<br>その数字に向かい続ける。</p>
+            </div>
+            <!-- Philosophy -->
+            <div class="mvp-item text-center py-12 md:py-16 px-6 md:px-10 overflow-hidden border-t md:border-t-0 md:border-l border-white/10">
+                <div class="mvp-glow-bg" style="background: radial-gradient(circle, rgba(130,185,255,1) 0%, rgba(55,95,244,0.60) 30%, rgba(37,71,244,0.12) 60%, transparent 80%);"></div>
+                <p class="text-[10px] font-bold font-display tracking-[0.45em] uppercase mb-5" style="color: rgba(147,180,255,0.6);">Philosophy</p>
+                <p class="text-4xl md:text-5xl font-black font-display text-white tracking-tighter leading-[1.1] mb-2">共に</p>
+                <p class="text-sm font-display tracking-wide mb-6" style="color: rgba(147,180,255,0.5);">Together</p>
+                <p class="text-sm leading-relaxed text-white">クライアントとともに、<br>参加者とともに、社会とともに。</p>
             </div>
         </div>
     </div>
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
-<!-- MISSION -->
+<!-- WHAT WE DO -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<section class="py-28 bg-white relative z-10">
+<section id="whatwedo" class="py-28 bg-primary relative z-10">
     <div class="max-w-7xl mx-auto px-6">
-        <div class="grid md:grid-cols-2 gap-20 items-center">
-            <div>
-                <span class="section-label mb-5 block">Our Mission</span>
-                <h2 class="text-5xl md:text-6xl font-bold font-display text-slate-900 tracking-tighter leading-tight mb-8">
-                    人と文化を<br>つなぐ、<br><span class="gradient-text">体験の設計者</span>
-                </h2>
-                <div class="w-12 h-px bg-primary mt-8"></div>
+        <div class="text-center mb-16 animate-on-scroll">
+            <span class="section-label mb-4 block !text-white/60">What We Do</span>
+            <h2 class="text-4xl md:text-5xl font-bold font-display text-white tracking-tighter">感動を設計するとは、<br>行動変容を設計することだ。</h2>
+            <p class="text-white/70 mt-4 text-sm max-w-2xl mx-auto leading-relaxed">私たちが手がけるのは単なるイベントや研修ではありません。脳科学・心理工学・コーチングのメソッドを融合させ、参加者の感情を動かし、組織の行動を根本から変える体験を創ります。</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-white rounded-2xl border border-slate-100 border-t-4 border-t-primary p-8 hover:shadow-xl hover:shadow-primary/8 transition-all duration-300 hover:-translate-y-1 animate-on-scroll">
+                <div class="inline-flex items-center gap-1.5 bg-primary/8 text-primary rounded-full px-3 py-1 mb-5">
+                    <span class="text-[10px] font-bold font-display tracking-[0.3em] uppercase">Mission</span>
+                </div>
+                <div class="w-12 h-12 bg-primary/8 rounded-2xl flex items-center justify-center mb-6">
+                    <span class="material-symbols-outlined text-primary text-2xl">auto_awesome</span>
+                </div>
+                <h3 class="text-lg font-bold font-display text-slate-900 mb-3">記憶に刻まれる体験</h3>
+                <p class="text-slate-500 text-sm leading-relaxed">感情記憶の強化メカニズムを活用し、参加者の脳に永続する感動体験を設計します。プロジェクションマッピング・空間演出・ライブ映像を組み合わせた没入型イベントを制作します。</p>
             </div>
-            <div>
-                <p class="text-slate-600 text-base md:text-lg leading-loose mb-6">
-                    WATER FALL Inc. は、「イベントが終わった翌日、参加者が誰かに話したくなる体験をつくること」を信念に掲げるイベントプロデュース会社です。
+            <div class="bg-white rounded-2xl border border-slate-100 border-t-4 border-t-primary p-8 hover:shadow-xl hover:shadow-primary/8 transition-all duration-300 hover:-translate-y-1 animate-on-scroll">
+                <div class="inline-flex items-center gap-1.5 bg-primary/8 text-primary rounded-full px-3 py-1 mb-5">
+                    <span class="text-[10px] font-bold font-display tracking-[0.3em] uppercase">Vision</span>
+                </div>
+                <div class="w-12 h-12 bg-primary/8 rounded-2xl flex items-center justify-center mb-6">
+                    <span class="material-symbols-outlined text-primary text-2xl">psychology</span>
+                </div>
+                <h3 class="text-lg font-bold font-display text-slate-900 mb-3">科学的根拠に基づく組織変革</h3>
+                <p class="text-slate-500 text-sm leading-relaxed">コーチング・脳科学・心理工学の知見を統合した研修プログラムで、ミッション言語化からチームビルディング、行動定着まで一気通貫で支援します。</p>
+            </div>
+            <div class="bg-white rounded-2xl border border-slate-100 border-t-4 border-t-primary p-8 hover:shadow-xl hover:shadow-primary/8 transition-all duration-300 hover:-translate-y-1 animate-on-scroll">
+                <div class="inline-flex items-center gap-1.5 bg-primary/8 text-primary rounded-full px-3 py-1 mb-5">
+                    <span class="text-[10px] font-bold font-display tracking-[0.3em] uppercase">Philosophy</span>
+                </div>
+                <div class="w-12 h-12 bg-primary/8 rounded-2xl flex items-center justify-center mb-6">
+                    <span class="material-symbols-outlined text-primary text-2xl">description</span>
+                </div>
+                <h3 class="text-lg font-bold font-display text-slate-900 mb-3">助成金活用で、投資対効果を最大化</h3>
+                <p class="text-slate-500 text-sm leading-relaxed">人材開発支援助成金・文化庁補助金・小規模事業者持続化補助金など、事業に合った助成金の申請から採択までトータルサポートします。採択支援実績多数。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════ -->
+<!-- METHOD (最重要セクション) -->
+<!-- ═══════════════════════════════════════════════════════════ -->
+<section id="method" class="py-28 bg-white relative z-10 overflow-hidden">
+    <!-- Decorative background element -->
+    <div class="absolute top-0 right-0 w-[55%] h-full bg-gradient-to-bl from-slate-50 via-transparent to-transparent pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-64 h-64 bg-primary/4 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto px-6 relative">
+        <div class="grid md:grid-cols-2 gap-16 lg:gap-24 items-start">
+            <!-- Left Column -->
+            <div class="slide-left">
+                <span class="section-label mb-4 block">Our Method</span>
+                <h2 class="text-4xl md:text-5xl font-bold font-display text-slate-900 tracking-tighter leading-tight mb-6">
+                    なぜ、<br>WATER FALLの<br>体験は<span class="gradient-text-blue">変化を</span><br>生むのか。
+                </h2>
+                <p class="text-slate-500 text-base leading-loose mb-8">
+                    私たちがデザインするのは「空間」ではなく「脳内の記憶」です。
+                    神経科学・心理工学・コーチングの3つのアプローチを統合することで、
+                    一過性の感動ではなく、永続する行動変容を創り出します。
                 </p>
-                <p class="text-slate-600 text-base leading-loose mb-8">
-                    企画・演出・運営・映像制作をワンストップで提供し、日本の伝統文化や文化財をデジタルアートと融合させた独自のプロジェクション事業も展開。<br>助成金・補助金申請に対応したプランニングにも対応しています。
-                </p>
-                <a href="company.html" class="inline-flex items-center gap-2 text-primary font-bold font-display text-sm tracking-widest uppercase group">
-                    私たちについて詳しく
-                    <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                <a href="method.html" class="inline-flex items-center gap-2 bg-primary text-white hover:bg-primary/90 px-8 py-3.5 rounded-xl font-bold font-display text-sm tracking-widest uppercase transition-all shadow-lg shadow-primary/25">
+                    メソッドの全容を見る
+                    <span class="material-symbols-outlined text-sm">arrow_forward</span>
                 </a>
+            </div>
+            <!-- Right Column: 3 Approach Cards -->
+            <div class="flex flex-col gap-4 slide-right">
+                <!-- 01 -->
+                <div class="method-card relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-2xl p-7 pl-10">
+                    <div class="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-primary via-blue-400 to-primary/20 rounded-l-full"></div>
+                    <span class="absolute -top-3 right-3 font-display text-8xl font-black text-white/5 leading-none select-none">01</span>
+                    <p class="text-blue-400 text-xs font-bold font-display tracking-[0.2em] uppercase mb-1">Neuroscience</p>
+                    <h3 class="text-lg font-bold font-display text-white mb-3">神経科学アプローチ</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed">私たちは、自己信念（ビリーフ）と行動の研究をベースに、認知機能・感情機能・行動機能の3つを最大化する体験設計を追求してきました。<br><br>その核心にあるのが、3つのハピネスホルモンを意図的に設計に組み込む仕掛けです。<br><br>達成感と意欲を生む「ドーパミン」、信頼と共感・絆を育む「オキシトシン」、安心と自己肯定感を高める「セロトニン」——<br><br>この3つのホルモン分泌を体験の中に設計することで、受講者が本来持つ潜在能力を最大限に引き出し、最高パフォーマンスを再現性のある形で実現します。</p>
+                    <p class="text-blue-400/60 text-[11px] font-display tracking-wider mt-4 pt-3 border-t border-white/10">Dopamine × Oxytocin × Serotonin / Belief · Cognition · Emotion · Action</p>
+                </div>
+                <!-- 02 -->
+                <div class="method-card relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-2xl p-7 pl-10">
+                    <div class="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-primary via-blue-400 to-primary/20 rounded-l-full"></div>
+                    <span class="absolute -top-3 right-3 font-display text-8xl font-black text-white/5 leading-none select-none">02</span>
+                    <p class="text-blue-400 text-xs font-bold font-display tracking-[0.2em] uppercase mb-1">Psychological Engineering</p>
+                    <h3 class="text-lg font-bold font-display text-white mb-3">心理工学アプローチ</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed">私たちは体験を「情報」として届けません。受講者の感情曲線に同調した「物語（ストーリー）」として設計します。<br><br>体験の中にストーリーの弧（アーク）を描くことで、脳内のミラーニューロンが最大限に活性化され、参加者は「傍観者」ではなく「自分自身のヒーローズジャーニーを歩む主人公」として体験を受け取ります。<br><br>感動・気づき・決意——その感情の流れを意図的に設計することで、「変わりたい」「動き出したい」という衝動が自然に、自発的に生まれる仕掛けを体験のすべての場面に組み込んでいます。</p>
+                    <p class="text-blue-400/60 text-[11px] font-display tracking-wider mt-4 pt-3 border-t border-white/10">Mirror Neurons / Emotional Arc / Hero's Journey</p>
+                </div>
+                <!-- 03 -->
+                <div class="method-card relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-2xl p-7 pl-10">
+                    <div class="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-primary via-blue-400 to-primary/20 rounded-l-full"></div>
+                    <span class="absolute -top-3 right-3 font-display text-8xl font-black text-white/5 leading-none select-none">03</span>
+                    <p class="text-blue-400 text-xs font-bold font-display tracking-[0.2em] uppercase mb-1">Coaching Methodology</p>
+                    <h3 class="text-lg font-bold font-display text-white mb-3">コーチングメソッド</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed">脳科学・心理工学・心理学・マーケティング理論に精通したプロフェッショナルが、25年の実践と研究を経て体系化した独自のコーチングメソッド。<br><br>「気づかせる」のではなく「気づきたくなる」場を設計します。対話・内省・承認を組み合わせた独自の問いかけによって、参加者一人ひとりの内発的動機が自然に浮き上がり、「やらされる変化」ではなく「自分から望む変化」へと接続します。<br><br>ビリーフの書き換えから行動定着まで——知識としての学びではなく、人生のOSを更新する体験を提供します。</p>
+                    <p class="text-blue-400/60 text-[11px] font-display tracking-wider mt-4 pt-3 border-t border-white/10">25 Years of Systematization / Belief Rewriting × Intrinsic Motivation</p>
+                </div>
             </div>
         </div>
     </div>
@@ -311,111 +394,123 @@
 <!-- ═══════════════════════════════════════════════════════════ -->
 <section id="services" class="py-28 bg-slate-50 relative z-10">
     <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-20">
-            <span class="section-label mb-4 block">Our Services</span>
-            <h2 class="text-4xl md:text-5xl font-bold font-display text-slate-900 tracking-tighter">サービス一覧</h2>
-            <p class="text-slate-500 mt-4 text-sm">企画から当日運営まで、イベントに関わるすべてをワンストップで。</p>
+        <div class="text-center mb-20 animate-on-scroll">
+            <span class="section-label mb-4 block">Services</span>
+            <h2 class="text-4xl md:text-5xl font-bold font-display text-slate-900 tracking-tighter">感動を設計するための、6つのアプローチ</h2>
+            <p class="text-slate-500 mt-4 text-sm max-w-xl mx-auto">企画から運営まで、そして教育・助成金対応まで。脳科学ベースのプロセスで、すべてのタッチポイントをデザインします。</p>
         </div>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- 01 -->
-            <div class="service-card group bg-white rounded-2xl border border-slate-100 hover:border-primary/20 overflow-hidden">
+            <div class="service-card group bg-white rounded-2xl border border-slate-100 hover:border-primary/20 overflow-hidden animate-on-scroll">
                 <div class="aspect-video overflow-hidden">
                     <img src="images/service_bg_01.jpg" alt="企画・コンセプト立案" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                 </div>
                 <div class="p-7">
-                    <div class="w-10 h-10 bg-primary/8 rounded-xl flex items-center justify-center mb-5">
-                        <span class="material-symbols-outlined text-primary text-xl">lightbulb</span>
-                    </div>
                     <p class="section-label mb-2">01</p>
-                    <h3 class="text-xl font-bold font-display text-slate-900 mb-3">企画・コンセプト立案</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">目的・ターゲット・予算をヒアリングし、独自のコンセプトとプログラムをゼロから設計します。</p>
-                    <a href="services.html#planning" class="mt-6 inline-flex items-center gap-1 text-primary text-xs font-bold font-display tracking-widest uppercase">
+                    <h3 class="text-xl font-bold font-display text-slate-900 mb-1">企画・コンセプト立案</h3>
+                    <p class="text-slate-400 text-xs font-display tracking-wide mb-3">Strategic Concept Planning</p>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-3">目的・ターゲット・感情目標を定義し、体験全体のナラティブを設計します。</p>
+                    <span class="inline-flex items-center gap-1.5 text-xs text-primary bg-primary/5 border border-primary/15 px-3 py-1.5 rounded-full mb-4">
+                        <span class="material-symbols-outlined text-xs">neurology</span> 期待感の神経学的設計
+                    </span>
+                    <br>
+                    <a href="services.html#planning" class="inline-flex items-center gap-1 text-primary text-xs font-bold font-display tracking-widest uppercase">
                         詳しく見る <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
                     </a>
                 </div>
             </div>
             <!-- 02 -->
-            <div class="service-card group bg-white rounded-2xl border border-slate-100 hover:border-primary/20 overflow-hidden">
+            <div class="service-card group bg-white rounded-2xl border border-slate-100 hover:border-primary/20 overflow-hidden animate-on-scroll">
                 <div class="aspect-video overflow-hidden">
                     <img src="images/service_bg_02.jpg" alt="空間演出・デザイン" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                 </div>
                 <div class="p-7">
-                    <div class="w-10 h-10 bg-primary/8 rounded-xl flex items-center justify-center mb-5">
-                        <span class="material-symbols-outlined text-primary text-xl">stadium</span>
-                    </div>
                     <p class="section-label mb-2">02</p>
-                    <h3 class="text-xl font-bold font-display text-slate-900 mb-3">空間演出・デザイン</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">照明・音響・映像・装飾の統合デザインで、会場全体を体験空間として作り上げます。</p>
-                    <a href="services.html#staging" class="mt-6 inline-flex items-center gap-1 text-primary text-xs font-bold font-display tracking-widest uppercase">
+                    <h3 class="text-xl font-bold font-display text-slate-900 mb-1">空間演出・デザイン</h3>
+                    <p class="text-slate-400 text-xs font-display tracking-wide mb-3">Spatial Experience Design</p>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-3">光・音・香り・温度を統合した没入空間を構築。多感覚刺激が脳の活性化を促進します。</p>
+                    <span class="inline-flex items-center gap-1.5 text-xs text-primary bg-primary/5 border border-primary/15 px-3 py-1.5 rounded-full mb-4">
+                        <span class="material-symbols-outlined text-xs">neurology</span> 多感覚統合 × 没入体験
+                    </span>
+                    <br>
+                    <a href="services.html#staging" class="inline-flex items-center gap-1 text-primary text-xs font-bold font-display tracking-widest uppercase">
                         詳しく見る <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
                     </a>
                 </div>
             </div>
             <!-- 03 FEATURED -->
-            <div class="service-card group bg-white rounded-2xl border-2 border-accent relative overflow-hidden hover:border-accent/80">
-                <div class="absolute top-3 right-3 z-10 bg-accent text-white text-xs px-3 py-1 rounded-full font-display font-bold tracking-wider">注目</div>
+            <div class="service-card group bg-white rounded-2xl border-2 border-accent relative overflow-hidden hover:border-accent/80 animate-on-scroll">
+                <div class="absolute top-3 right-3 z-10 bg-accent text-white text-xs px-3 py-1 rounded-full font-display font-bold tracking-wider">Featured</div>
                 <div class="aspect-video overflow-hidden">
                     <img src="images/service_bg_03.jpg" alt="デジタルアート・プロジェクションマッピング" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                 </div>
                 <div class="p-7">
-                    <div class="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center mb-5">
-                        <span class="material-symbols-outlined text-accent text-xl">auto_awesome</span>
-                    </div>
                     <p class="section-label mb-2" style="color:#ff6b00;">03</p>
-                    <h3 class="text-xl font-bold font-display text-slate-900 mb-3">デジタルアート・<br>プロジェクションマッピング</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">文化財・建造物を舞台に、最新のデジタル技術で唯一無二の光の空間を創出します。</p>
-                    <a href="services.html#projection" class="mt-6 inline-flex items-center gap-1 text-accent text-xs font-bold font-display tracking-widest uppercase">
+                    <h3 class="text-xl font-bold font-display text-slate-900 mb-1">デジタルアート・<br>プロジェクションマッピング</h3>
+                    <p class="text-slate-400 text-xs font-display tracking-wide mb-3">Digital Art & Projection Mapping</p>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-3">文化財・建築物に光の芸術を投影。視覚的な驚きと音楽による臨場感が、参加者を非日常へと引き込みます。</p>
+                    <span class="inline-flex items-center gap-1.5 text-xs text-accent bg-accent/5 border border-accent/20 px-3 py-1.5 rounded-full mb-4">
+                        <span class="material-symbols-outlined text-xs">neurology</span> 驚き反応 × 臨場感
+                    </span>
+                    <br>
+                    <a href="services.html#projection" class="inline-flex items-center gap-1 text-accent text-xs font-bold font-display tracking-widest uppercase">
                         詳しく見る <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
                     </a>
                 </div>
             </div>
             <!-- 04 -->
-            <div class="service-card group bg-white rounded-2xl border border-slate-100 hover:border-primary/20 overflow-hidden">
+            <div class="service-card group bg-white rounded-2xl border border-slate-100 hover:border-primary/20 overflow-hidden animate-on-scroll">
                 <div class="aspect-video overflow-hidden">
                     <img src="images/service_bg_04.jpg" alt="映像制作・ライブ配信" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                 </div>
                 <div class="p-7">
-                    <div class="w-10 h-10 bg-primary/8 rounded-xl flex items-center justify-center mb-5">
-                        <span class="material-symbols-outlined text-primary text-xl">videocam</span>
-                    </div>
                     <p class="section-label mb-2">04</p>
-                    <h3 class="text-xl font-bold font-display text-slate-900 mb-3">映像制作・ライブ配信</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">プロモーション映像の企画・制作から、イベント当日のライブ中継・記録映像まで対応します。</p>
-                    <a href="services.html#video" class="mt-6 inline-flex items-center gap-1 text-primary text-xs font-bold font-display tracking-widest uppercase">
+                    <h3 class="text-xl font-bold font-display text-slate-900 mb-1">映像制作・ライブ配信</h3>
+                    <p class="text-slate-400 text-xs font-display tracking-wide mb-3">Video Production & Live Streaming</p>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-3">感動の瞬間を記録し、体験を拡張・永続させます。</p>
+                    <span class="inline-flex items-center gap-1.5 text-xs text-primary bg-primary/5 border border-primary/15 px-3 py-1.5 rounded-full mb-4">
+                        <span class="material-symbols-outlined text-xs">neurology</span> 記憶の強化と再体験効果
+                    </span>
+                    <br>
+                    <a href="services.html#video" class="inline-flex items-center gap-1 text-primary text-xs font-bold font-display tracking-widest uppercase">
                         詳しく見る <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
                     </a>
                 </div>
             </div>
             <!-- 05 -->
-            <div class="service-card group bg-white rounded-2xl border border-slate-100 hover:border-primary/20 overflow-hidden">
+            <div class="service-card group bg-white rounded-2xl border border-slate-100 hover:border-primary/20 overflow-hidden animate-on-scroll">
                 <div class="aspect-video overflow-hidden">
                     <img src="images/service_bg_05.jpg" alt="当日運営・進行管理" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                 </div>
                 <div class="p-7">
-                    <div class="w-10 h-10 bg-primary/8 rounded-xl flex items-center justify-center mb-5">
-                        <span class="material-symbols-outlined text-primary text-xl">manage_accounts</span>
-                    </div>
                     <p class="section-label mb-2">05</p>
-                    <h3 class="text-xl font-bold font-display text-slate-900 mb-3">当日運営・進行管理</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">ディレクション・スタッフ配置・タイムライン管理など、当日を一括マネジメントします。</p>
-                    <a href="services.html#operations" class="mt-6 inline-flex items-center gap-1 text-primary text-xs font-bold font-display tracking-widest uppercase">
+                    <h3 class="text-xl font-bold font-display text-slate-900 mb-1">当日運営・進行管理</h3>
+                    <p class="text-slate-400 text-xs font-display tracking-wide mb-3">Event Management & Direction</p>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-3">クライマックスと締めくくりを緻密にデザインした当日進行で、参加者の記憶に刻まれる最高の瞬間を確実に演出します。</p>
+                    <span class="inline-flex items-center gap-1.5 text-xs text-primary bg-primary/5 border border-primary/15 px-3 py-1.5 rounded-full mb-4">
+                        <span class="material-symbols-outlined text-xs">neurology</span> クライマックス演出 × 完璧な進行
+                    </span>
+                    <br>
+                    <a href="services.html#operations" class="inline-flex items-center gap-1 text-primary text-xs font-bold font-display tracking-widest uppercase">
                         詳しく見る <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
                     </a>
                 </div>
             </div>
             <!-- 06 -->
-            <div class="service-card group bg-white rounded-2xl border border-slate-100 hover:border-primary/20 overflow-hidden">
+            <div class="service-card group bg-white rounded-2xl border border-slate-100 hover:border-primary/20 overflow-hidden animate-on-scroll">
                 <div class="aspect-video overflow-hidden">
                     <img src="images/company_vision.jpg" alt="文化事業・助成金対応" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                 </div>
                 <div class="p-7">
-                    <div class="w-10 h-10 bg-primary/8 rounded-xl flex items-center justify-center mb-5">
-                        <span class="material-symbols-outlined text-primary text-xl">temple_buddhist</span>
-                    </div>
                     <p class="section-label mb-2">06</p>
-                    <h3 class="text-xl font-bold font-display text-slate-900 mb-3">文化事業・助成金対応</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">伝統文化・地域振興イベントの企画制作。助成金申請に対応したプランニングも承ります。</p>
-                    <a href="services.html#cultural" class="mt-6 inline-flex items-center gap-1 text-primary text-xs font-bold font-display tracking-widest uppercase">
+                    <h3 class="text-xl font-bold font-display text-slate-900 mb-1">文化事業・助成金対応</h3>
+                    <p class="text-slate-400 text-xs font-display tracking-wide mb-3">Cultural Projects & Subsidy Support</p>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-3">文化庁・厚労省・地方自治体等の補助金申請から採択まで、実績あるサポートを提供します。</p>
+                    <span class="inline-flex items-center gap-1.5 text-xs text-primary bg-primary/5 border border-primary/15 px-3 py-1.5 rounded-full mb-4">
+                        <span class="material-symbols-outlined text-xs">neurology</span> 文化体験 × 地域振興
+                    </span>
+                    <br>
+                    <a href="services.html#cultural" class="inline-flex items-center gap-1 text-primary text-xs font-bold font-display tracking-widest uppercase">
                         詳しく見る <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
                     </a>
                 </div>
@@ -431,249 +526,86 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
-<!-- STRENGTHS -->
+<!-- CASE STUDIES -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<section class="py-28 bg-white relative z-10">
+<section id="cases" class="py-28 bg-white relative z-10">
     <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-20">
-            <span class="section-label mb-4 block">Our Strengths</span>
-            <h2 class="text-4xl md:text-5xl font-bold font-display text-slate-900 tracking-tighter">私たちの強み</h2>
+        <div class="text-center mb-16 animate-on-scroll">
+            <span class="section-label mb-4 block">Case Studies</span>
+            <h2 class="text-4xl md:text-5xl font-bold font-display text-slate-900 tracking-tighter">実績が語る、変化の軌跡。</h2>
+            <p class="text-slate-500 mt-4 text-sm">数値で証明する、体験デザインの効果。</p>
         </div>
 
-        <!-- Strength 01 -->
-        <div class="grid md:grid-cols-2 gap-16 items-center mb-28">
-            <div class="relative">
-                <div class="aspect-video rounded-2xl overflow-hidden shadow-2xl shadow-primary/10">
-                    <img src="images/service_bg_03(1).jpg" alt="デジタルアート×伝統文化" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-r from-primary/20 to-transparent"></div>
+        <!-- CASE 01 -->
+        <div class="case-card bg-slate-50 border border-slate-100 border-l-4 border-l-primary rounded-2xl p-8 md:p-10 mb-8 animate-on-scroll">
+            <div class="flex items-center gap-4 mb-6">
+                <span class="text-primary text-xs font-bold font-display tracking-[0.2em] uppercase">Case 01</span>
+                <span class="text-slate-400 text-sm">製造業 従業員150名</span>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <p class="text-xs font-bold font-display tracking-widest uppercase text-primary mb-2">Challenge</p>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-5">部門間の断絶・離職率上昇・全社ビジョン未浸透</p>
+                    <p class="text-xs font-bold font-display tracking-widest uppercase text-primary mb-2">Approach</p>
+                    <p class="text-slate-600 text-sm leading-relaxed">エグゼクティブコーチングでMission/Vision/Philosophyを言語化。全社イベントでプロジェクションマッピングを用いMVPを「感動体験」として全社員へ届ける。チームビルディング研修で日常行動への定着を支援。</p>
                 </div>
-            </div>
-            <div>
-                <span class="section-label mb-4 block">Strength 01</span>
-                <h3 class="text-3xl md:text-4xl font-bold font-display text-slate-900 tracking-tighter mb-6">
-                    伝統文化 × デジタルアート<br>の独自表現
-                </h3>
-                <p class="text-slate-600 leading-loose mb-6 text-sm md:text-base">
-                    日本の美意識とテクノロジーを掛け合わせたイベントやプロジェクトは国内外から高い評価を得ています。
-                </p>
-                <div class="border-l-2 border-primary pl-5">
-                    <p class="font-bold text-slate-800 font-display text-sm">文化財保護の観点を重視</p>
-                    <p class="text-slate-500 text-sm mt-1 leading-relaxed">非接触・光のみで建物を彩る環境配慮型の演出設計</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Strength 02 -->
-        <div class="grid md:grid-cols-2 gap-16 items-center mb-28">
-            <div class="order-2 md:order-1">
-                <span class="section-label mb-4 block">Strength 02</span>
-                <h3 class="text-3xl md:text-4xl font-bold font-display text-slate-900 tracking-tighter mb-6">
-                    企画から運営まで<br>ワンストップ対応
-                </h3>
-                <p class="text-slate-600 leading-loose mb-6 text-sm md:text-base">
-                    コンセプト立案・会場設計・映像制作・スタッフ配置・当日ディレクションまで、すべてを社内チームが担当。窓口が一本化されることで、品質の一貫性とスピード感を実現します。
-                </p>
-                <ul class="space-y-3">
-                    <li class="flex items-center gap-3 text-slate-700 text-sm">
-                        <span class="material-symbols-outlined text-primary text-lg flex-shrink-0">check_circle</span>
-                        30名〜10,000名規模まで対応可能
-                    </li>
-                    <li class="flex items-center gap-3 text-slate-700 text-sm">
-                        <span class="material-symbols-outlined text-primary text-lg flex-shrink-0">check_circle</span>
-                        全国15都市での豊富な実績
-                    </li>
-                    <li class="flex items-center gap-3 text-slate-700 text-sm">
-                        <span class="material-symbols-outlined text-primary text-lg flex-shrink-0">check_circle</span>
-                        イベント賠償責任保険加入済み（JACE会員）
-                    </li>
-                </ul>
-            </div>
-            <div class="order-1 md:order-2">
-                <div class="aspect-video rounded-2xl overflow-hidden shadow-2xl shadow-slate-200">
-                    <img src="images/service_strength03.jpg" alt="ワンストップ対応" class="w-full h-full object-cover">
+                <div>
+                    <p class="text-xs font-bold font-display tracking-widest uppercase text-primary mb-4">Results</p>
+                    <div class="flex flex-wrap gap-3">
+                        <div class="bg-white border border-primary/15 rounded-xl p-4 text-center min-w-[140px]">
+                            <p class="text-2xl font-bold font-display text-slate-900">+42%</p>
+                            <p class="text-slate-500 text-xs mt-1">エンゲージメントスコア</p>
+                        </div>
+                        <div class="bg-white border border-primary/15 rounded-xl p-4 text-center min-w-[140px]">
+                            <p class="text-2xl font-bold font-display text-slate-900">3倍</p>
+                            <p class="text-slate-500 text-xs mt-1">部門横断PJ発足数</p>
+                        </div>
+                        <div class="bg-white border border-primary/15 rounded-xl p-4 text-center min-w-[140px]">
+                            <p class="text-2xl font-bold font-display text-slate-900">18%→11%</p>
+                            <p class="text-slate-500 text-xs mt-1">離職率（6ヶ月後）</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Strength 03 -->
-        <div class="grid md:grid-cols-2 gap-16 items-center">
-            <div class="relative">
-                <div class="aspect-video rounded-2xl overflow-hidden shadow-2xl shadow-accent/10">
-                    <img src="images/service_strength04.jpg" alt="助成金対応" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-r from-accent/15 to-transparent"></div>
-                </div>
+        <!-- CASE 02 -->
+        <div class="case-card bg-slate-50 border border-slate-100 border-l-4 border-l-primary rounded-2xl p-8 md:p-10 mb-8 animate-on-scroll">
+            <div class="flex items-center gap-4 mb-6">
+                <span class="text-primary text-xs font-bold font-display tracking-[0.2em] uppercase">Case 02</span>
+                <span class="text-slate-400 text-sm">地方自治体 文化観光課</span>
             </div>
-            <div>
-                <span class="section-label mb-4 block">Strength 03</span>
-                <h3 class="text-3xl md:text-4xl font-bold font-display text-slate-900 tracking-tighter mb-6">
-                    助成金・補助金申請に<br>対応したプランニング
-                </h3>
-                <p class="text-slate-600 leading-loose mb-6 text-sm md:text-base">
-                    文化庁・経済産業省・都道府県の文化振興補助金など、各種助成金の採択要件を踏まえた事業計画の策定をサポート。文化的価値・地域貢献・参加者実績データを正確に記録・提出できる体制を整えています。
-                </p>
-                <div class="bg-primary/5 border border-primary/15 rounded-xl p-5">
-                    <p class="font-bold text-primary text-sm font-display mb-2">対応可能な助成金例</p>
-                    <p class="text-slate-600 text-xs leading-relaxed">
-                        文化庁補助金 / 地域文化振興助成 / 経産省クールジャパン関連<br>都市観光推進補助 / 地方自治体独自の文化振興助成 など
-                    </p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <p class="text-xs font-bold font-display tracking-widest uppercase text-primary mb-2">Challenge</p>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-5">地域文化の認知度低下・若年層の文化離れ・観光客数の減少</p>
+                    <p class="text-xs font-bold font-display tracking-widest uppercase text-primary mb-2">Approach</p>
+                    <p class="text-slate-600 text-sm leading-relaxed">文化庁補助金申請・採択サポート。地域文化財へのプロジェクションマッピング実施。体験型学習ワークショップとの連携。</p>
                 </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- WORKS - FEATURED (DARK) -->
-<!-- ═══════════════════════════════════════════════════════════ -->
-<section id="works" class="py-28 bg-slate-900 text-white relative z-10 overflow-hidden">
-    <div class="absolute inset-0 z-0">
-        <img src="images/hero_event.jpg" alt="" class="w-full h-full object-cover opacity-8">
-        <div class="absolute inset-0 bg-slate-900/90"></div>
-    </div>
-    <div class="relative z-10 max-w-7xl mx-auto px-6">
-        <div class="text-center mb-20">
-            <span class="section-label mb-4 block" style="color:#ff6b00;">Our Works</span>
-            <h2 class="text-4xl md:text-5xl font-bold font-display tracking-tighter">制作実績</h2>
-            <p class="text-white/50 mt-4 text-sm">イベントプロデュース実績の一部をご紹介します。</p>
-        </div>
-
-        <!-- Featured Project -->
-        <div class="mb-16 bg-white/5 rounded-3xl overflow-hidden border border-white/10 grid md:grid-cols-5">
-            <div class="md:col-span-3 relative aspect-video md:aspect-auto min-h-72 overflow-hidden">
-                <img src="images/works_projection.jpg" alt="プロジェクションマッピング" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
-                <div class="absolute inset-0 bg-gradient-to-r from-transparent to-slate-900/40"></div>
-                <div class="absolute top-4 left-4 bg-accent/90 text-white text-xs px-3 py-1.5 rounded-full font-display font-bold tracking-wider">
-                    Featured Project
-                </div>
-            </div>
-            <div class="md:col-span-2 p-10 md:p-14 flex flex-col justify-center">
-                <span class="text-accent text-xs font-display tracking-[0.35em] uppercase font-bold mb-4 block">Projection Mapping</span>
-                <h3 class="text-3xl md:text-4xl font-bold font-display tracking-tighter mb-5">PROJECTION<br>MAPPING</h3>
-                <p class="text-white/65 leading-loose mb-8 text-sm">
-                    日本の文化財・歴史的建造物をキャンバスとした大規模プロジェクションマッピング。伝統文化と現代デジタルアートの融合により、時代を超えた感動体験を創出。国内外から高い評価を受けた代表作です。
-                </p>
-                <div class="flex flex-wrap gap-2">
-                    <span class="bg-white/10 text-white/75 text-xs px-3 py-1.5 rounded-full font-display">文化財</span>
-                    <span class="bg-white/10 text-white/75 text-xs px-3 py-1.5 rounded-full font-display">プロジェクションマッピング</span>
-                    <span class="bg-white/10 text-white/75 text-xs px-3 py-1.5 rounded-full font-display">地域振興</span>
-                    <span class="bg-white/10 text-white/75 text-xs px-3 py-1.5 rounded-full font-display">デジタルアート</span>
+                <div>
+                    <p class="text-xs font-bold font-display tracking-widest uppercase text-primary mb-4">Results</p>
+                    <div class="flex flex-wrap gap-3">
+                        <div class="bg-white border border-primary/15 rounded-xl p-4 text-center min-w-[140px]">
+                            <p class="text-2xl font-bold font-display text-primary">採択</p>
+                            <p class="text-slate-500 text-xs mt-1">文化庁補助金</p>
+                        </div>
+                        <div class="bg-white border border-primary/15 rounded-xl p-4 text-center min-w-[140px]">
+                            <p class="text-2xl font-bold font-display text-slate-900">2.8倍</p>
+                            <p class="text-slate-500 text-xs mt-1">来場者数 前年比</p>
+                        </div>
+                        <div class="bg-white border border-primary/15 rounded-xl p-4 text-center min-w-[140px]">
+                            <p class="text-2xl font-bold font-display text-slate-900">12件</p>
+                            <p class="text-slate-500 text-xs mt-1">地域メディア掲載</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Works Grid -->
-        <div class="grid md:grid-cols-2 gap-4">
-            <div class="works-card relative aspect-video rounded-xl overflow-hidden group cursor-pointer">
-                <img src="images/works_corporate.jpg" alt="企業式典" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/92 via-slate-900/55 via-40% to-transparent"></div>
-                <div class="works-overlay absolute inset-0 bg-primary/25"></div>
-                <div class="absolute bottom-0 left-0 p-5">
-                    <span class="text-white/55 text-xs font-display tracking-widest uppercase">Corporate</span>
-                    <p class="text-white font-bold font-display text-base mt-0.5">企業式典・社員総会</p>
-                    <p class="text-white/65 text-xs leading-relaxed mt-1.5">創立記念式典・社員総会・キックオフイベントなど、企業の重要な節目をコンセプト設計から演出・当日運営まで一貫してプロデュースします。</p>
-                </div>
-            </div>
-            <div class="works-card relative aspect-video rounded-xl overflow-hidden group cursor-pointer">
-                <img src="images/wrapping_mizuma.jpg" alt="文化イベント" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/92 via-slate-900/55 via-40% to-transparent"></div>
-                <div class="works-overlay absolute inset-0 bg-primary/25"></div>
-                <div class="absolute bottom-0 left-0 p-5">
-                    <span class="text-white/55 text-xs font-display tracking-widest uppercase">Cultural</span>
-                    <p class="text-white font-bold font-display text-base mt-0.5">文化・地域振興イベント</p>
-                    <p class="text-white/65 text-xs leading-relaxed mt-1.5">文化財・神社仏閣へのプロジェクションマッピングや地域祭・観光イベントを企画制作。文化庁助成金採択実績を持つ専門チームが対応します。</p>
-                </div>
-            </div>
-            <div class="works-card relative aspect-video rounded-xl overflow-hidden group cursor-pointer">
-                <img src="images/works_launch.jpg" alt="製品発表会" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/92 via-slate-900/55 via-40% to-transparent"></div>
-                <div class="works-overlay absolute inset-0 bg-primary/25"></div>
-                <div class="absolute bottom-0 left-0 p-5">
-                    <span class="text-white/55 text-xs font-display tracking-widest uppercase">Launch Event</span>
-                    <p class="text-white font-bold font-display text-base mt-0.5">製品発表会・プロモーション</p>
-                    <p class="text-white/65 text-xs leading-relaxed mt-1.5">新製品発表会・展示会・プロモーションイベントをトータルプロデュース。ブランドの世界観を会場体験として設計し、参加者の記憶に残る場をつくります。</p>
-                </div>
-            </div>
-            <div class="works-card relative aspect-video rounded-xl overflow-hidden group cursor-pointer">
-                <img src="images/works_entertainment.jpg" alt="コンサート・ライブイベント" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/92 via-slate-900/55 via-40% to-transparent"></div>
-                <div class="works-overlay absolute inset-0 bg-primary/25"></div>
-                <div class="absolute bottom-0 left-0 p-5">
-                    <span class="text-white/55 text-xs font-display tracking-widest uppercase">Entertainment</span>
-                    <p class="text-white font-bold font-display text-base mt-0.5">コンサート・ライブイベント</p>
-                    <p class="text-white/65 text-xs leading-relaxed mt-1.5">ステージ演出・照明・音響・映像を統合デザイン。アーティストの世界観を最大限に引き出す、没入型のライブ空間を実現します。</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════ -->
-<!-- EVENT FLOW -->
-<!-- ═══════════════════════════════════════════════════════════ -->
-<section class="py-28 bg-slate-50 relative z-10">
-    <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-20">
-            <span class="section-label mb-4 block">How It Works</span>
-            <h2 class="text-4xl md:text-5xl font-bold font-display text-slate-900 tracking-tighter">イベント開催の流れ</h2>
-            <p class="text-slate-500 mt-4 text-sm">お問い合わせからイベント完了まで、6つのステップで進みます。</p>
-        </div>
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            <!-- Step 1 -->
-            <div class="text-center">
-                <div class="relative w-14 h-14 bg-primary text-white rounded-2xl flex items-center justify-center mx-auto mb-5 font-display font-bold text-lg shadow-lg shadow-primary/25">
-                    01
-                </div>
-                <h4 class="font-bold font-display text-slate-900 text-sm mb-2">ヒアリング</h4>
-                <p class="text-slate-500 text-xs leading-relaxed">目的・規模・<br>予算・日程の確認</p>
-            </div>
-            <!-- Step 2 -->
-            <div class="text-center">
-                <div class="w-14 h-14 bg-white border-2 border-primary/30 text-primary rounded-2xl flex items-center justify-center mx-auto mb-5 font-display font-bold text-lg">
-                    02
-                </div>
-                <h4 class="font-bold font-display text-slate-900 text-sm mb-2">企画提案</h4>
-                <p class="text-slate-500 text-xs leading-relaxed">コンセプト・<br>プログラムの提案</p>
-            </div>
-            <!-- Step 3 -->
-            <div class="text-center">
-                <div class="w-14 h-14 bg-white border-2 border-primary/30 text-primary rounded-2xl flex items-center justify-center mx-auto mb-5 font-display font-bold text-lg">
-                    03
-                </div>
-                <h4 class="font-bold font-display text-slate-900 text-sm mb-2">制作・準備</h4>
-                <p class="text-slate-500 text-xs leading-relaxed">映像・装飾・<br>スタッフ手配</p>
-            </div>
-            <!-- Step 4 -->
-            <div class="text-center">
-                <div class="w-14 h-14 bg-white border-2 border-primary/30 text-primary rounded-2xl flex items-center justify-center mx-auto mb-5 font-display font-bold text-lg">
-                    04
-                </div>
-                <h4 class="font-bold font-display text-slate-900 text-sm mb-2">リハーサル</h4>
-                <p class="text-slate-500 text-xs leading-relaxed">現場確認・<br>テクニカルリハ</p>
-            </div>
-            <!-- Step 5 -->
-            <div class="text-center">
-                <div class="w-14 h-14 bg-white border-2 border-primary/30 text-primary rounded-2xl flex items-center justify-center mx-auto mb-5 font-display font-bold text-lg">
-                    05
-                </div>
-                <h4 class="font-bold font-display text-slate-900 text-sm mb-2">当日運営</h4>
-                <p class="text-slate-500 text-xs leading-relaxed">進行・ディレクション・<br>トラブル対応</p>
-            </div>
-            <!-- Step 6 -->
-            <div class="text-center">
-                <div class="w-14 h-14 bg-accent text-white rounded-2xl flex items-center justify-center mx-auto mb-5 font-display font-bold text-lg shadow-lg shadow-accent/25">
-                    06
-                </div>
-                <h4 class="font-bold font-display text-slate-900 text-sm mb-2">レポート</h4>
-                <p class="text-slate-500 text-xs leading-relaxed">実績報告・<br>アフターフォロー</p>
-            </div>
-        </div>
-        <!-- Flow line connector (decorative) -->
-        <div class="hidden lg:flex items-center justify-between mt-2 px-7 relative" style="margin-top:-5rem; padding-bottom: 4rem; z-index:-1">
-            <div class="w-full h-px bg-gradient-to-r from-primary via-primary/50 to-accent/80 mx-2"></div>
-        </div>
-        <div class="text-center mt-12">
-            <a href="contact.html" class="inline-flex items-center gap-2 bg-primary hover:bg-primary/85 text-white px-10 py-4 rounded-xl font-bold font-display text-sm tracking-widest uppercase transition-all shadow-lg shadow-primary/20 group">
-                まずはご相談ください
+        <div class="text-center mt-12 animate-on-scroll">
+            <p class="text-xl font-bold font-display text-slate-900 mb-4">あなたの事例を一緒に作りませんか？</p>
+            <a href="contact.html" class="inline-flex items-center gap-2 bg-primary hover:bg-primary/85 text-white px-10 py-4 rounded-xl font-bold font-display text-sm tracking-widest uppercase transition-all shadow-lg shadow-primary/25 group">
+                まずは無料ヒアリングから
                 <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
             </a>
         </div>
@@ -681,59 +613,71 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════ -->
-<!-- NEWS -->
+<!-- FAQ -->
 <!-- ═══════════════════════════════════════════════════════════ -->
-<section class="py-28 bg-white relative z-10">
+<section id="faq" class="py-28 bg-white relative z-10">
     <div class="max-w-7xl mx-auto px-6">
-        <div class="flex items-end justify-between mb-16">
-            <div>
-                <span class="section-label mb-4 block">News & Topics</span>
-                <h2 class="text-4xl font-bold font-display text-slate-900 tracking-tighter">ニュース</h2>
-            </div>
-            <a href="#" class="hidden md:inline-flex items-center gap-2 text-primary font-bold font-display text-xs tracking-widest uppercase group">
-                すべて見る <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
-            </a>
+        <div class="text-center mb-16 animate-on-scroll">
+            <span class="section-label mb-4 block">FAQ</span>
+            <h2 class="text-4xl md:text-5xl font-bold font-display text-slate-900 tracking-tighter">よくあるご質問</h2>
         </div>
-        <div class="grid md:grid-cols-3 gap-6">
-            <article class="news-card bg-white rounded-2xl overflow-hidden border border-slate-100 group cursor-pointer">
-                <div class="aspect-video overflow-hidden">
-                    <img src="images/service_bg_03.jpg" alt="プロジェクションマッピング" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+        <div class="max-w-3xl mx-auto">
+            <div class="faq-item border border-slate-100 rounded-t-2xl bg-white">
+                <div class="faq-question flex justify-between items-center px-7 py-5 cursor-pointer hover:bg-slate-50 transition-colors">
+                    <span class="text-slate-800 font-bold text-sm pr-4">初回相談は無料ですか？</span>
+                    <span class="faq-toggle text-primary text-xl font-bold transition-transform flex-shrink-0">+</span>
                 </div>
-                <div class="p-6">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="bg-primary/8 text-primary text-xs px-3 py-1 rounded-full font-display font-bold">実績報告</span>
-                        <time class="text-slate-400 text-xs font-display">2025.03</time>
-                    </div>
-                    <h3 class="font-bold text-slate-900 text-base leading-snug mb-2 group-hover:text-primary transition-colors font-display">文化財プロジェクションマッピングイベント第3回を開催</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed line-clamp-2">国内文化財を舞台にした大規模デジタルアートイベントを実施。延べ来場者5,000名を超える記録を達成しました。</p>
+                <div class="faq-answer"><div class="px-7 pb-5 text-slate-500 text-sm leading-relaxed">はい。初回ヒアリング・お見積もりは無料です。お気軽にご連絡ください。</div></div>
+            </div>
+            <div class="faq-item border border-t-0 border-slate-100 bg-white">
+                <div class="faq-question flex justify-between items-center px-7 py-5 cursor-pointer hover:bg-slate-50 transition-colors">
+                    <span class="text-slate-800 font-bold text-sm pr-4">小規模なイベントでも対応できますか？</span>
+                    <span class="faq-toggle text-primary text-xl font-bold transition-transform flex-shrink-0">+</span>
                 </div>
-            </article>
-            <article class="news-card bg-white rounded-2xl overflow-hidden border border-slate-100 group cursor-pointer">
-                <div class="aspect-video overflow-hidden">
-                    <img src="images/service_bg_02.jpg" alt="企業式典" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="faq-answer"><div class="px-7 pb-5 text-slate-500 text-sm leading-relaxed">30名規模から対応しています。オンラインイベントにも対応可能です。</div></div>
+            </div>
+            <div class="faq-item border border-t-0 border-slate-100 bg-white">
+                <div class="faq-question flex justify-between items-center px-7 py-5 cursor-pointer hover:bg-slate-50 transition-colors">
+                    <span class="text-slate-800 font-bold text-sm pr-4">研修に助成金は使えますか？</span>
+                    <span class="faq-toggle text-primary text-xl font-bold transition-transform flex-shrink-0">+</span>
                 </div>
-                <div class="p-6">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="bg-accent/10 text-accent text-xs px-3 py-1 rounded-full font-display font-bold">お知らせ</span>
-                        <time class="text-slate-400 text-xs font-display">2025.01</time>
-                    </div>
-                    <h3 class="font-bold text-slate-900 text-base leading-snug mb-2 group-hover:text-primary transition-colors font-display">JACE（日本イベント産業振興協会）の会員に登録しました</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed line-clamp-2">業界団体への加盟により、さらなる品質向上と信頼性の確保に努めてまいります。</p>
+                <div class="faq-answer"><div class="px-7 pb-5 text-slate-500 text-sm leading-relaxed">厚生労働省の「人材開発支援助成金」が活用できる場合があります。中小企業の場合、研修費用の最大75%（上限あり）が補助される制度です。当社では申請書類の作成サポートも承っています。まずはお気軽にご相談ください。</div></div>
+            </div>
+            <div class="faq-item border border-t-0 border-slate-100 bg-white">
+                <div class="faq-question flex justify-between items-center px-7 py-5 cursor-pointer hover:bg-slate-50 transition-colors">
+                    <span class="text-slate-800 font-bold text-sm pr-4">プロジェクションマッピングに補助金はありますか？</span>
+                    <span class="faq-toggle text-primary text-xl font-bold transition-transform flex-shrink-0">+</span>
                 </div>
-            </article>
-            <article class="news-card bg-white rounded-2xl overflow-hidden border border-slate-100 group cursor-pointer">
-                <div class="aspect-video overflow-hidden">
-                    <img src="images/company_vision.jpg" alt="地域振興" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                <div class="faq-answer"><div class="px-7 pb-5 text-slate-500 text-sm leading-relaxed">文化庁・日本芸術文化振興会・地方自治体の文化事業補助金が活用できるケースがあります。採択実績もございますので、ご相談いただければ対象要件の確認から申請サポートまでお手伝いします。</div></div>
+            </div>
+            <div class="faq-item border border-t-0 border-slate-100 bg-white">
+                <div class="faq-question flex justify-between items-center px-7 py-5 cursor-pointer hover:bg-slate-50 transition-colors">
+                    <span class="text-slate-800 font-bold text-sm pr-4">脳科学に基づくとはどういう意味ですか？</span>
+                    <span class="faq-toggle text-primary text-xl font-bold transition-transform flex-shrink-0">+</span>
                 </div>
-                <div class="p-6">
-                    <div class="flex items-center gap-3 mb-3">
-                        <span class="bg-primary/8 text-primary text-xs px-3 py-1 rounded-full font-display font-bold">実績報告</span>
-                        <time class="text-slate-400 text-xs font-display">2024.11</time>
-                    </div>
-                    <h3 class="font-bold text-slate-900 text-base leading-snug mb-2 group-hover:text-primary transition-colors font-display">地域振興イベント「伝統と革新の夜」を全国3都市で開催</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed line-clamp-2">伝統芸能とデジタルアートを融合させたイベントを京都・奈良・金沢で順次開催しました。</p>
+                <div class="faq-answer"><div class="px-7 pb-5 text-slate-500 text-sm leading-relaxed">体験設計において、神経科学の知見（感情記憶の強化、ドーパミン報酬系の活用、ピークエンドの法則など）を意識的に取り入れているという意味です。「なんとなく感動した」ではなく、「なぜ感動が行動変容につながるのか」を科学的根拠に基づいて設計しています。</div></div>
+            </div>
+            <div class="faq-item border border-t-0 border-slate-100 bg-white">
+                <div class="faq-question flex justify-between items-center px-7 py-5 cursor-pointer hover:bg-slate-50 transition-colors">
+                    <span class="text-slate-800 font-bold text-sm pr-4">研修の効果はどのように測定しますか？</span>
+                    <span class="faq-toggle text-primary text-xl font-bold transition-transform flex-shrink-0">+</span>
                 </div>
-            </article>
+                <div class="faq-answer"><div class="px-7 pb-5 text-slate-500 text-sm leading-relaxed">研修前後のアンケート調査・360度フィードバック・組織エンゲージメントスコアの変化などで効果を測定します。数値化することで、次回研修の改善と助成金申請書類への活用も可能です。</div></div>
+            </div>
+            <div class="faq-item border border-t-0 border-slate-100 rounded-b-2xl bg-white">
+                <div class="faq-question flex justify-between items-center px-7 py-5 cursor-pointer hover:bg-slate-50 transition-colors">
+                    <span class="text-slate-800 font-bold text-sm pr-4">助成金申請のサポートはありますか？</span>
+                    <span class="faq-toggle text-primary text-xl font-bold transition-transform flex-shrink-0">+</span>
+                </div>
+                <div class="faq-answer"><div class="px-7 pb-5 text-slate-500 text-sm leading-relaxed">はい。文化・芸術事業助成金・人材開発支援助成金・小規模事業者持続化補助金など、事業内容に合った助成金の選定から申請書類の作成支援まで対応しています。</div></div>
+            </div>
+        </div>
+        <div class="text-center mt-12 animate-on-scroll">
+            <p class="text-slate-500 text-sm mb-4">他にご不明な点がございましたら、お気軽にお問い合わせください。初回ヒアリングは無料です。</p>
+            <a href="contact.html" class="inline-flex items-center gap-2 bg-primary hover:bg-primary/85 text-white px-8 py-3.5 rounded-xl font-bold font-display text-sm tracking-widest uppercase transition-all shadow-lg shadow-primary/20 group">
+                お問い合わせ
+                <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </a>
         </div>
     </div>
 </section>
@@ -743,7 +687,7 @@
 <!-- ═══════════════════════════════════════════════════════════ -->
 <section class="py-28 bg-primary text-white relative z-10 overflow-hidden">
     <div class="absolute inset-0 opacity-10">
-        <img src="images/hero.jpg" alt="" class="w-full h-full object-cover">
+        <img src="images/hero_event.jpg" alt="" class="w-full h-full object-cover">
     </div>
     <div class="absolute top-0 right-0 w-96 h-96 bg-accent/20 rounded-full blur-3xl"></div>
     <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
@@ -774,7 +718,6 @@
 <footer class="bg-slate-900 text-white py-20 relative z-10">
     <div class="max-w-7xl mx-auto px-6">
         <div class="grid md:grid-cols-4 gap-12 mb-16">
-            <!-- Brand -->
             <div class="md:col-span-2">
                 <div class="flex items-center gap-3 mb-6">
                     <div class="w-8 h-8 bg-primary rounded-sm flex items-center justify-center">
@@ -786,24 +729,25 @@
                 </div>
                 <p class="text-white/50 text-sm leading-loose mb-6 max-w-sm">
                     イベントの企画・演出・運営をトータルプロデュース。<br>
-                    デジタルアートと伝統文化の融合で、感動体験を設計します。
+                    組織の「在り方」を言語化する教育事業も展開しています。<br>
+                    感動体験と人材育成の融合で、社会を豊かにします。
                 </p>
                 <div class="space-y-2">
-                    <p class="text-white/40 text-xs font-display">〒104-0061 東京都中央区銀座5-10-10 銀座ビル1階</p>
+                    <p class="text-white/40 text-xs font-display">〒104-0061 東京都中央区銀座1丁目</p>
                     <p class="text-white/40 text-xs font-display">info@water-fall.jp</p>
                 </div>
             </div>
-            <!-- Nav -->
             <div>
                 <p class="text-white/30 text-xs font-display tracking-widest uppercase mb-6">Navigation</p>
                 <ul class="space-y-3">
                     <li><a href="index.html" class="text-white/60 hover:text-white text-sm transition-colors font-display">Home</a></li>
                     <li><a href="services.html" class="text-white/60 hover:text-white text-sm transition-colors font-display">Services</a></li>
+                    <li><a href="method.html" class="text-white/60 hover:text-white text-sm transition-colors font-display">Method</a></li>
+                    <li><a href="programs.html" class="text-white/60 hover:text-white text-sm transition-colors font-display">Programs</a></li>
                     <li><a href="company.html" class="text-white/60 hover:text-white text-sm transition-colors font-display">Company</a></li>
                     <li><a href="contact.html" class="text-white/60 hover:text-white text-sm transition-colors font-display">Contact</a></li>
                 </ul>
             </div>
-            <!-- Services -->
             <div>
                 <p class="text-white/30 text-xs font-display tracking-widest uppercase mb-6">Services</p>
                 <ul class="space-y-3">
@@ -812,15 +756,86 @@
                     <li><a href="services.html#projection" class="text-white/60 hover:text-white text-sm transition-colors">プロジェクションマッピング</a></li>
                     <li><a href="services.html#video" class="text-white/60 hover:text-white text-sm transition-colors">映像制作・ライブ配信</a></li>
                     <li><a href="services.html#cultural" class="text-white/60 hover:text-white text-sm transition-colors">文化事業・助成金対応</a></li>
+                    <li><a href="programs.html" class="text-white/60 hover:text-white text-sm transition-colors">企業研修・人材育成</a></li>
                 </ul>
             </div>
         </div>
         <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p class="text-white/30 text-xs font-display">© 2024 WATER FALL Inc. All Rights Reserved.</p>
-            <p class="text-white/20 text-xs font-display">一般社団法人 日本イベント産業振興協会（JACE）会員</p>
+            <p class="text-white/30 text-xs font-display">&copy; 2026 WATER FALL INC. All Rights Reserved.</p>
+            <div class="flex gap-4">
+                <a href="#" class="text-white/20 hover:text-white/50 text-xs font-display transition-colors">プライバシーポリシー</a>
+                <span class="text-white/10">｜</span>
+                <a href="#" class="text-white/20 hover:text-white/50 text-xs font-display transition-colors">特定商取引法に基づく表記</a>
+            </div>
         </div>
     </div>
 </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Mobile menu
+    document.getElementById('menu-btn').addEventListener('click', () => {
+        document.getElementById('mobile-menu').classList.toggle('open');
+    });
+
+    // Smooth scroll with offset
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            const target = document.querySelector(targetId);
+            if (target) {
+                e.preventDefault();
+                const top = target.getBoundingClientRect().top + window.pageYOffset - 80;
+                window.scrollTo({ top, behavior: 'smooth' });
+                document.getElementById('mobile-menu').classList.remove('open');
+            }
+        });
+    });
+
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.animate-on-scroll, .slide-left, .slide-right').forEach(el => observer.observe(el));
+
+    // Stats counter
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.querySelectorAll('[data-target]').forEach(counter => {
+                    const target = parseInt(counter.getAttribute('data-target'));
+                    const duration = 2000;
+                    const start = performance.now();
+                    const animate = (now) => {
+                        const progress = Math.min((now - start) / duration, 1);
+                        const eased = 1 - Math.pow(1 - progress, 3);
+                        counter.textContent = Math.floor(eased * target);
+                        if (progress < 1) requestAnimationFrame(animate);
+                        else counter.textContent = target;
+                    };
+                    requestAnimationFrame(animate);
+                });
+                statsObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.3 });
+    const statsSection = document.getElementById('stats');
+    if (statsSection) statsObserver.observe(statsSection);
+
+    // FAQ Accordion
+    document.querySelectorAll('.faq-question').forEach(q => {
+        q.addEventListener('click', () => {
+            const item = q.parentElement;
+            const wasOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+            if (!wasOpen) item.classList.add('open');
+        });
+    });
+});
+</script>
 
 </body>
 </html>
